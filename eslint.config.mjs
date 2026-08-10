@@ -33,6 +33,7 @@ export default defineConfig([
 				dom: 'readonly',
 				form: 'readonly',
 				fs: 'readonly',
+				rpc: 'readonly',
 				uci: 'readonly',
 				ui: 'readonly',
 				view: 'readonly',

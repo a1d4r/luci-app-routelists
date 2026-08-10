@@ -2,6 +2,7 @@
 'require view';
 'require dom';
 'require fs';
+'require rpc';
 'require ui';
 'require uci';
 'require view.routelists.grammar as grammar';
@@ -28,6 +29,18 @@ function displayName(filename) {
 
 function filePath(filename) {
 	return LIST_DIR + '/' + filename;
+}
+
+/* uci.apply() rejects with a bare ubus status code instead of an Error */
+function errText(err) {
+	return (err instanceof Error) ? err.message : rpc.getStatusText(err);
+}
+
+/* Empty files are not read at all (their content is known); fs.read_direct()
+   bypasses the ubus message size limit, so large lists are counted correctly.
+   null means the read genuinely failed and the content is unknown. */
+function readList(filename, size) {
+	return size ? L.resolveDefault(fs.read_direct(filePath(filename)), null) : Promise.resolve('');
 }
 
 function findUciSection(name) {
@@ -84,7 +97,7 @@ return view.extend({
 			const files = data[2].filter((e) => e.type == 'file');
 
 			return Promise.all(
-				files.map((f) => L.resolveDefault(fs.read(filePath(f.name)), ''))
+				files.map((f) => readList(f.name, f.size))
 			).then((contents) => ({
 				files: files,
 				contents: contents,
@@ -113,7 +126,9 @@ return view.extend({
 					mode: mode,
 					size: f.size,
 					path: path,
-					entries: grammar.validate(data.contents[i], mode).entries,
+					entries: data.contents[i] === null
+						? null /* unreadable — do not pretend the list is empty */
+						: grammar.validate(data.contents[i], mode).entries,
 					usedBy: usedBySections(path, data.zbLoaded)
 				};
 			})
@@ -207,13 +222,16 @@ return view.extend({
 	},
 
 	renderRow: function (list) {
+		/* Dynamic strings are passed as array children: a bare string child is
+		   assigned via innerHTML by dom.append(), an array becomes text nodes */
 		return E('div', { 'class': 'tr' }, [
-			E('div', { 'class': 'td', 'data-title': _('Name') }, list.name),
+			E('div', { 'class': 'td', 'data-title': _('Name') }, [list.name]),
 			E('div', { 'class': 'td', 'data-title': _('Check mode') }, modeLabel(list.mode)),
-			E('div', { 'class': 'td', 'data-title': _('Entries') }, String(list.entries)),
+			E('div', { 'class': 'td', 'data-title': _('Entries') },
+				list.entries === null ? '?' : String(list.entries)),
 			E('div', { 'class': 'td', 'data-title': _('Size') }, '%1024.2mB'.format(list.size)),
 			E('div', { 'class': 'td', 'data-title': _('Path') }, [
-				E('code', {}, list.path),
+				E('code', {}, [list.path]),
 				' ',
 				E('button', {
 					'class': 'btn cbi-button cbi-button-neutral',
@@ -264,7 +282,7 @@ return view.extend({
 		}
 
 		if (this.state.lists.some((l) => l.name == name)) {
-			ui.addNotification(null, E('p', _('A list named "%s" already exists.').format(name)), 'error');
+			ui.addNotification(null, E('p', [_('A list named "%s" already exists.').format(name)]), 'error');
 			return;
 		}
 
@@ -284,7 +302,7 @@ return view.extend({
 				location.href = L.url('admin', 'services', 'routelists', 'edit', file);
 			})
 			.catch((err) => {
-				ui.addNotification(null, E('p', _('Failed to create list: %s').format(err.message)), 'error');
+				ui.addNotification(null, E('p', [_('Failed to create list: %s').format(errText(err))]), 'error');
 			});
 	},
 
@@ -296,15 +314,16 @@ return view.extend({
 			'value': list.name
 		});
 		const body = [
-			E('p', _('New name for list "%s" (the file keeps the .txt extension):').format(list.name)),
+			E('p', [_('New name for list "%s" (the file keeps the .txt extension):').format(list.name)]),
 			input
 		];
 
 		/* D12: paths inside ZeroBlock sections are never rewritten by us */
 		if (list.usedBy.length)
-			body.push(E('p', { 'class': 'alert-message warning' },
+			body.push(E('p', { 'class': 'alert-message warning' }, [
 				_('This file is referenced by ZeroBlock section(s): %s. The paths there are not updated automatically — fix them manually after renaming.')
-					.format(list.usedBy.join(', '))));
+					.format(list.usedBy.join(', '))
+			]));
 
 		body.push(E('div', { 'class': 'right' }, [
 			E('button', { 'class': 'btn', 'click': ui.hideModal }, _('Cancel')),
@@ -331,14 +350,19 @@ return view.extend({
 			return ui.hideModal();
 
 		if (this.state.lists.some((l) => l.name == newName)) {
-			ui.addNotification(null, E('p', _('A list named "%s" already exists.').format(newName)), 'error');
+			ui.addNotification(null, E('p', [_('A list named "%s" already exists.').format(newName)]), 'error');
 			return;
 		}
 
 		const newFile = newName + '.txt';
 
-		return fs.read(list.path)
-			.then((content) => fs.write(filePath(newFile), content))
+		return readList(list.file, list.size)
+			.then((content) => {
+				if (content === null)
+					return Promise.reject(new Error(_('the list file could not be read')));
+
+				return fs.write(filePath(newFile), content);
+			})
 			.then(() => fs.remove(list.path))
 			.then(() => {
 				const sid = findUciSection(list.name);
@@ -357,18 +381,19 @@ return view.extend({
 			}, this))
 			.catch((err) => {
 				ui.hideModal();
-				ui.addNotification(null, E('p', _('Failed to rename list: %s').format(err.message)), 'error');
+				ui.addNotification(null, E('p', [_('Failed to rename list: %s').format(errText(err))]), 'error');
 			});
 	},
 
 	handleRemove: function (list) {
-		const body = [E('p', _('Delete list "%s"? The file will be removed permanently.').format(list.name))];
+		const body = [E('p', [_('Delete list "%s"? The file will be removed permanently.').format(list.name)])];
 
 		/* PRD 7.1: reinforced warning when the file is referenced (D11) */
 		if (list.usedBy.length)
-			body.push(E('p', { 'class': 'alert-message warning' },
+			body.push(E('p', { 'class': 'alert-message warning' }, [
 				_('This file is referenced by ZeroBlock section(s): %s. Depending on lists_failure_mode, a missing file may disable the section or stop the whole proxy service (teardown). Remove the path from the sections first.')
-					.format(list.usedBy.join(', '))));
+					.format(list.usedBy.join(', '))
+			]));
 
 		body.push(E('div', { 'class': 'right' }, [
 			E('button', { 'class': 'btn', 'click': ui.hideModal }, _('Cancel')),
@@ -403,7 +428,7 @@ return view.extend({
 			}, this))
 			.catch((err) => {
 				ui.hideModal();
-				ui.addNotification(null, E('p', _('Failed to delete list: %s').format(err.message)), 'error');
+				ui.addNotification(null, E('p', [_('Failed to delete list: %s').format(errText(err))]), 'error');
 			});
 	},
 
@@ -418,11 +443,12 @@ return view.extend({
 				body.push(E('p', _('ZeroBlock %s failed (exit code %d).').format(action, res.code)));
 
 			if (out)
-				body.push(E('pre', {}, out));
+				body.push(E('pre', {}, [out]));
 
 			ui.addNotification(null, body, res.code === 0 ? 'info' : 'error');
 		}).catch(function (err) {
-			ui.addNotification(null, E('p', _('Failed to run ZeroBlock %s: %s').format(action, err.message)), 'error');
+			ui.addNotification(null,
+				E('p', [_('Failed to run ZeroBlock %s: %s').format(action, errText(err))]), 'error');
 		});
 	}
 });

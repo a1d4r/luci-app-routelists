@@ -2,14 +2,23 @@
 'require view';
 'require dom';
 'require fs';
+'require rpc';
 'require ui';
 'require uci';
 'require view.routelists.grammar as grammar';
 
 const LIST_DIR = '/etc/user-lists';
 const ZB_INIT = '/etc/init.d/zeroblock';
+/* The file name comes straight from the URL, so it must not be able to escape
+   LIST_DIR: the rpcd ACL glob "/etc/user-lists/*" is matched with fnmatch(),
+   which spans "/" and does not resolve "..". Leading dots are rejected too. */
+const FILE_RE = /^[A-Za-z0-9_][A-Za-z0-9._-]{0,63}$/;
 const MODES = ['auto', 'domain', 'ip'];
-const MAX_SIZE = 1048576; /* PRD section 8: file limit 1 MiB */
+/* PRD section 8: writes go through the ubus "file write" call, whose message
+   size limit is well below a megabyte — luci-app-adblock caps its own list
+   editor at the same order of magnitude for exactly this reason. Reads use
+   fs.read_direct(), which bypasses ubus and is not bound by this limit. */
+const MAX_SIZE = 102400;
 const MAX_SHOWN_PROBLEMS = 100;
 
 function modeLabel(mode) {
@@ -25,6 +34,11 @@ function modeLabel(mode) {
 
 function displayName(filename) {
 	return filename.replace(/\.txt$/, '');
+}
+
+/* uci.apply() rejects with a bare ubus status code instead of an Error */
+function errText(err) {
+	return (err instanceof Error) ? err.message : rpc.getStatusText(err);
 }
 
 function findUciSection(name) {
@@ -66,31 +80,47 @@ return view.extend({
 		const file = requestPath[requestPath.length - 1] || '';
 
 		if (!file || file == 'edit')
-			return Promise.resolve({ file: null });
+			return Promise.resolve({ message: _('No list name given.') });
+
+		if (!FILE_RE.test(file))
+			return Promise.resolve({ message: _('Invalid list name in the address.') });
+
+		const path = LIST_DIR + '/' + file;
 
 		return Promise.all([
 			L.resolveDefault(uci.load('routelists'), null),
-			L.resolveDefault(fs.stat(LIST_DIR + '/' + file), null),
-			/* rpcd "file read" fails on empty (0-byte) files — existence is
-			   checked via stat above, a failed read just means no content */
-			L.resolveDefault(fs.read(LIST_DIR + '/' + file), ''),
+			L.resolveDefault(fs.stat(path), null),
 			L.resolveDefault(fs.stat(ZB_INIT), null)
-		]).then((data) => ({
-			file: file,
-			exists: data[1] != null,
-			content: data[2],
-			hasZeroblock: data[3] != null
-		}));
+		]).then((data) => {
+			const stat = data[1];
+			const hasZeroblock = data[2] != null;
+
+			if (stat == null)
+				return { message: _('List file "%s" was not found in %s.').format(file, LIST_DIR) };
+
+			/* Empty files are not read at all (their content is known and the
+			   rpcd/cgi-io round trip is pointless); for the rest a failed read
+			   must not look like an empty list, or Save would overwrite the
+			   file with nothing (D14) */
+			if (!stat.size)
+				return { file: file, content: '', hasZeroblock: hasZeroblock };
+
+			return fs.read_direct(path).then((content) => ({
+				file: file,
+				content: content,
+				hasZeroblock: hasZeroblock
+			}), (err) => ({
+				message: _('Failed to read the list file: %s. The editor stays closed so that the file cannot be overwritten with empty content.')
+					.format(errText(err))
+			}));
+		});
 	},
 
 	render: function (data) {
-		if (!data.file || !data.exists)
+		if (data.message)
 			return E('div', { 'class': 'cbi-map' }, [
 				E('h2', _('Edit list')),
-				E('p', { 'class': 'alert-message warning' },
-					data.file
-						? _('List file "%s" was not found in %s.').format(data.file, LIST_DIR)
-						: _('No list name given.')),
+				E('p', { 'class': 'alert-message warning' }, [data.message]),
 				E('button', {
 					'class': 'btn cbi-button cbi-button-neutral',
 					'click': function () {
@@ -121,6 +151,13 @@ return view.extend({
 			'input': L.bind(this.handleInput, this)
 		});
 		this.textarea.value = data.content;
+
+		/* A file that is already over the limit cannot be written back, so it
+		   is shown read-only instead of letting the user lose their edits */
+		const tooBig = new TextEncoder().encode(data.content).length > MAX_SIZE;
+
+		if (tooBig)
+			this.textarea.setAttribute('readonly', 'readonly');
 
 		this.counter = E('span', { 'style': 'margin-left:1em' });
 		this.issueList = E('div', { 'style': 'margin-top:.5em' });
@@ -177,14 +214,16 @@ return view.extend({
 			}
 		}, this));
 
+		/* Dynamic strings are passed as array children: a bare string child is
+		   assigned via innerHTML by dom.append(), an array becomes text nodes */
 		const node = E('div', { 'class': 'cbi-map' }, [
-			E('h2', _('Edit list: %s').format(this.name)),
+			E('h2', [_('Edit list: %s').format(this.name)]),
 			E('div', { 'style': 'margin-bottom:.5em' }, [
 				E('label', {}, [_('Check mode'), ' ', this.modeSelect]),
 				this.counter
 			]),
 			E('div', { 'style': 'margin-bottom:.5em' }, [
-				E('code', {}, this.path),
+				E('code', {}, [this.path]),
 				' ',
 				E('button', {
 					'class': 'btn cbi-button cbi-button-neutral',
@@ -192,6 +231,10 @@ return view.extend({
 					'click': L.bind(this.handleCopy, this)
 				}, _('Copy path'))
 			]),
+			...(tooBig ? [E('p', { 'class': 'alert-message warning' }, [
+				_('This list is larger than %d KiB and cannot be saved back — the editor is read-only. Edit the file over SSH.')
+					.format(MAX_SIZE / 1024)
+			])] : []),
 			this.textarea,
 			this.issueList,
 			E('div', { 'class': 'cbi-page-actions' }, buttons)
@@ -238,7 +281,7 @@ return view.extend({
 					ev.preventDefault();
 					this.jumpToLine(line);
 				}, this, p.line)
-			}, _('line %d: %s').format(p.line, p.message)));
+			}, [_('line %d: %s').format(p.line, p.message)]));
 		}, this));
 
 		if (res.problems.length > MAX_SHOWN_PROBLEMS)
@@ -293,7 +336,7 @@ return view.extend({
 
 		if (new TextEncoder().encode(text).length > MAX_SIZE) {
 			ui.addNotification(null,
-				E('p', _('Not saved: the file exceeds the 1 MiB limit.')), 'error');
+				E('p', [_('Not saved: the file exceeds the %d KiB limit.').format(MAX_SIZE / 1024)]), 'error');
 			return Promise.resolve(false);
 		}
 
@@ -320,7 +363,7 @@ return view.extend({
 				return true;
 			}, this))
 			.catch((err) => {
-				ui.addNotification(null, E('p', _('Failed to save list: %s').format(err.message)), 'error');
+				ui.addNotification(null, E('p', [_('Failed to save list: %s').format(errText(err))]), 'error');
 				return false;
 			});
 	},
@@ -363,12 +406,12 @@ return view.extend({
 					body.push(E('p', _('ZeroBlock %s failed (exit code %d).').format(action, res.code)));
 
 				if (out)
-					body.push(E('pre', {}, out));
+					body.push(E('pre', {}, [out]));
 
 				ui.addNotification(null, body, res.code === 0 ? 'info' : 'error');
 			}).catch(function (err) {
 				ui.addNotification(null,
-					E('p', _('Failed to run ZeroBlock %s: %s').format(action, err.message)), 'error');
+					E('p', [_('Failed to run ZeroBlock %s: %s').format(action, errText(err))]), 'error');
 			});
 		}, this));
 	},
