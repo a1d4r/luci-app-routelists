@@ -117,6 +117,13 @@ return view.extend({
 	},
 
 	render: function (data) {
+		/* the wildcard menu node edit/* has no title (a title would surface
+		   it as a fourth tab), so themes render the document title as
+		   "null" — set it from the view instead */
+		document.title = data.message
+			? _('Edit list')
+			: _('Edit list: %s').format(displayName(data.file));
+
 		if (data.message)
 			return E('div', { 'class': 'cbi-map' }, [
 				E('h2', _('Edit list')),
