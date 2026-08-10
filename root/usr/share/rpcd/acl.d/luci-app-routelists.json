@@ -3,9 +3,9 @@
 		"description": "Grant access to LuCI user route lists app",
 		"read": {
 			"file": {
-				"/etc/user-lists": [ "list", "read" ],
+				"/etc/user-lists": [ "list" ],
 				"/etc/user-lists/*": [ "read", "list" ],
-				"/etc/init.d/zeroblock": [ "read", "list" ]
+				"/etc/init.d/zeroblock": [ "list" ]
 			},
 			"ubus": {
 				"file": [ "list", "read", "stat" ]

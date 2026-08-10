@@ -43,6 +43,13 @@ function readList(filename, size) {
 	return size ? L.resolveDefault(fs.read_direct(filePath(filename)), null) : Promise.resolve('');
 }
 
+function listMode(name) {
+	const sid = findUciSection(name);
+	const mode = sid ? uci.get('routelists', sid, 'mode') : 'auto';
+
+	return MODES.indexOf(mode) < 0 ? 'auto' : mode;
+}
+
 function findUciSection(name) {
 	const match = uci.sections('routelists', 'list').filter((s) => s.name == name)[0];
 
@@ -96,11 +103,34 @@ return view.extend({
 		]).then((data) => {
 			const files = data[2].filter((e) => e.type == 'file');
 
-			return Promise.all(
-				files.map((f) => readList(f.name, f.size))
-			).then((contents) => ({
+			/* Entry counts are the only reason to read the files at all, so
+			   they are cached per file and recomputed only when the file or
+			   its check mode changed — a refresh after create/rename/delete
+			   would otherwise re-read every list in full. */
+			this.counts = this.counts || {};
+
+			return Promise.all(files.map((f) => {
+				const mode = listMode(displayName(f.name));
+				const key = [f.mtime, f.size, mode].join(':');
+				const cached = this.counts[f.name];
+
+				if (cached && cached.key == key)
+					return cached.entries;
+
+				return readList(f.name, f.size).then((content) => {
+					/* null content means the read failed and the count is
+					   unknown; that state is not cached, so the next refresh
+					   tries again */
+					const entries = content === null ? null : grammar.validate(content, mode).entries;
+
+					if (entries !== null)
+						this.counts[f.name] = { key: key, entries: entries };
+
+					return entries;
+				});
+			})).then((entries) => ({
 				files: files,
-				contents: contents,
+				entries: entries,
 				zbLoaded: data[1] != null,
 				hasZeroblock: data[3] != null
 			}));
@@ -112,23 +142,16 @@ return view.extend({
 			hasZeroblock: data.hasZeroblock,
 			lists: data.files.map((f, i) => {
 				const name = displayName(f.name);
-				const sid = findUciSection(name);
-				let mode = sid ? uci.get('routelists', sid, 'mode') : 'auto';
-
-				if (MODES.indexOf(mode) < 0)
-					mode = 'auto';
-
 				const path = filePath(f.name);
 
 				return {
 					file: f.name,
 					name: name,
-					mode: mode,
+					mode: listMode(name),
 					size: f.size,
 					path: path,
-					entries: data.contents[i] === null
-						? null /* unreadable — do not pretend the list is empty */
-						: grammar.validate(data.contents[i], mode).entries,
+					/* null: the file could not be read, so the count is unknown */
+					entries: data.entries[i],
 					usedBy: usedBySections(path, data.zbLoaded)
 				};
 			})
