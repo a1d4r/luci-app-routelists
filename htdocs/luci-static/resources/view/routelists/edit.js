@@ -140,26 +140,28 @@ return view.extend({
 			'click': L.bind(this.handleDeduplicate, this)
 		}, _('Remove duplicates'));
 
-		const buttons = [
-			E('button', {
-				'class': 'btn cbi-button cbi-button-save',
-				'click': ui.createHandlerFn(this, 'handlePlainSave')
-			}, _('Save'))
-		];
+		/* Standard LuCI footer order: Apply combo first, then Save
+		   (see view.addFooter in luci-base). D13: apply actions only
+		   when the init script exists; reload is primary, restart is
+		   secondary. */
+		const buttons = [];
 
-		/* D13: apply actions only when the init script exists;
-		   reload is the primary action, restart is secondary */
 		if (this.hasZeroblock)
-			buttons.push(' ', new ui.ComboButton('reload', {
+			buttons.push(new ui.ComboButton('reload', {
 				'reload': _('Save & Apply (reload)'),
 				'restart': _('Save & Restart')
 			}, {
 				'click': ui.createHandlerFn(this, 'handleSaveApplyAction'),
 				'classes': {
-					'reload': 'btn cbi-button cbi-button-apply',
-					'restart': 'btn cbi-button cbi-button-negative'
+					'reload': 'btn cbi-button cbi-button-apply important',
+					'restart': 'btn cbi-button cbi-button-negative important'
 				}
-			}).render());
+			}).render(), ' ');
+
+		buttons.push(E('button', {
+			'class': 'btn cbi-button cbi-button-save',
+			'click': ui.createHandlerFn(this, 'handlePlainSave')
+		}, _('Save')));
 
 		buttons.push(' ', this.escapeButton, ' ', this.dedupButton, ' ', E('button', {
 			'class': 'btn cbi-button cbi-button-neutral',
