@@ -116,6 +116,11 @@ msgstr "Не удалось создать список: %s"
 msgid "Failed to delete list: %s"
 msgstr "Не удалось удалить список: %s"
 
+msgid "Failed to read the list file: %s. The editor stays closed so that the "
+"file cannot be overwritten with empty content."
+msgstr "Не удалось прочитать файл списка: %s. Редактор не открыт, чтобы файл "
+"нельзя было перезаписать пустым содержимым."
+
 msgid "Failed to rename list: %s"
 msgstr "Не удалось переименовать список: %s"
 
@@ -152,6 +157,9 @@ msgstr "Если файл, на который ссылается секция Z
 msgid "Invalid list name — allowed: letters, digits, \"-\" and \"_\", at most 32 characters."
 msgstr "Недопустимое имя списка — разрешены латинские буквы, цифры, «-» и «_», не более 32 символов."
 
+msgid "Invalid list name in the address."
+msgstr "Недопустимое имя списка в адресе страницы."
+
 msgid "Leave"
 msgstr "Уйти"
 
@@ -176,8 +184,8 @@ msgstr "Имя списка не указано."
 msgid "No lists yet. Create the first one and attach it to a ZeroBlock section via its file path."
 msgstr "Списков пока нет. Создайте первый — и подключите к секции ZeroBlock по пути к файлу."
 
-msgid "Not saved: the file exceeds the 1 MiB limit."
-msgstr "Не сохранено: файл превышает лимит 1 МиБ."
+msgid "Not saved: the file exceeds the %d KiB limit."
+msgstr "Не сохранено: файл превышает лимит %d КиБ."
 
 msgid "Not saved: the list has problems. Fix them or use \"Save with warnings/errors\"."
 msgstr "Не сохранено: в списке есть проблемы. Исправьте их или используйте «Сохранить с предупреждениями/ошибками»."
@@ -266,6 +274,11 @@ msgstr "На этот файл ссылаются секции ZeroBlock: %s. В
 msgid "This file is referenced by ZeroBlock section(s): %s. The paths there are not updated automatically — fix them manually after renaming."
 msgstr "На этот файл ссылаются секции ZeroBlock: %s. Пути в них не обновляются автоматически — поправьте их вручную после переименования."
 
+msgid "This list is larger than %d KiB and cannot be saved back — the editor "
+"is read-only. Edit the file over SSH."
+msgstr "Этот список больше %d КиБ и не может быть сохранён обратно — редактор "
+"работает только на чтение. Правьте файл по SSH."
+
 msgid "Unsaved changes"
 msgstr "Несохранённые изменения"
 
@@ -325,6 +338,9 @@ msgstr "не IP/CIDR (в этом списке разрешены только I
 
 msgid "prefixes are not supported in list files (ZeroBlock contract, manual 11.1) — they only work when entered manually in a section"
 msgstr "префиксы не поддерживаются в файлах списков (контракт ZeroBlock, manual 11.1) — они работают только при ручном вводе в секции"
+
+msgid "the list file could not be read"
+msgstr "не удалось прочитать файл списка"
 
 msgid "…and %d more problems not shown"
 msgstr "…и ещё %d проблем не показано"
