@@ -107,8 +107,14 @@ test('inline comment is a warning, not an entry', () => {
 	assert.equal(r.problems[0].severity, 'warning');
 });
 
+test('inline comment after an IP entry is a warning, not a hosts-style error', () => {
+	assert.deepEqual(codes('1.2.3.4 # note'), ['inline-comment']);
+	assert.deepEqual(codes('2a00::1 # note'), ['inline-comment']);
+	assert.deepEqual(codes('1.2.3.0/24 # note'), ['inline-comment']);
+});
+
 test('full:/keyword:/regexp: prefixes are errors', () => {
-	for (const line of ['regexp:^a$', 'full:example.com', 'keyword:ads']) {
+	for (const line of ['regexp:^a$', 'full:example.com', 'keyword:ads', 'FULL:example.com']) {
 		const r = validate(line);
 		assert.equal(r.entries, 0, line);
 		assert.equal(r.problems.length, 1, line);
@@ -120,6 +126,7 @@ test('full:/keyword:/regexp: prefixes are errors', () => {
 test('hosts-style lines are errors', () => {
 	assert.deepEqual(codes('0.0.0.0 example.com'), ['hosts']);
 	assert.deepEqual(codes('127.0.0.1 localhost'), ['hosts']);
+	assert.deepEqual(codes('0.0.0.0\texample.com'), ['hosts']);
 });
 
 test('adblock syntax is an error', () => {
@@ -127,6 +134,11 @@ test('adblock syntax is an error', () => {
 	assert.deepEqual(codes('@@allowed.example'), ['adblock']);
 	assert.deepEqual(codes('example.com##.ad'), ['adblock']);
 	assert.deepEqual(codes('ads.example^'), ['adblock']);
+	assert.deepEqual(codes('##.ads'), ['adblock']);
+});
+
+test('a "##" comment with text stays a comment warning', () => {
+	assert.deepEqual(codes('## my sites'), ['comment']);
 });
 
 test('other garbage is an error', () => {

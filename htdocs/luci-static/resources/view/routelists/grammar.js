@@ -106,7 +106,8 @@ const LINE_CHECKS = [
 	{
 		code: 'comment',
 		severity: 'warning',
-		test: (s) => s.charAt(0) == '#',
+		/* "##" directly followed by a selector is adblock syntax, not a comment */
+		test: (s) => s.charAt(0) == '#' && !/^##\S/.test(s),
 		message: () => _('comments in list files are not documented by ZeroBlock — the line may be interpreted as a domain')
 	},
 	{
@@ -127,7 +128,9 @@ const LINE_CHECKS = [
 		test: (s) => {
 			const t = s.split(/\s+/);
 
-			return t.length > 1 && (isIPv4(t[0]) || isIPv6(t[0]) || isCidr(t[0]));
+			/* an IP followed by a comment is an inline comment, not a host map */
+			return t.length > 1 && t[1].charAt(0) != '#' &&
+				(isIPv4(t[0]) || isIPv6(t[0]) || isCidr(t[0]));
 		},
 		message: () => _('hosts-style format is explicitly excluded by the ZeroBlock file contract (manual 11.1)')
 	},
