@@ -76,6 +76,7 @@ test('IPv4 CIDR bounds', () => {
 });
 
 test('IPv6 forms', () => {
+	assert.deepEqual(codes('::'), []);
 	assert.deepEqual(codes('::1'), []);
 	assert.deepEqual(codes('1:2:3:4:5:6:7:8'), []);
 	assert.deepEqual(codes('::ffff:192.0.2.1'), []);
@@ -88,7 +89,18 @@ test('IPv6 forms', () => {
 test('IPv6 CIDR bounds', () => {
 	assert.deepEqual(codes('::/0'), []);
 	assert.deepEqual(codes('2a00::/32'), []);
+	assert.deepEqual(codes('::ffff:192.0.2.1/96'), []);
 	assert.deepEqual(codes('2a00::/129'), ['garbage']);
+});
+
+test('domain length limits', () => {
+	const label = 'a'.repeat(63);
+
+	assert.deepEqual(codes(label + '.com'), []);
+	assert.deepEqual(codes('a'.repeat(64) + '.com'), ['garbage']);
+
+	/* 4 × 63-char labels + ".com" is 259 characters — over the 253 limit */
+	assert.deepEqual(codes([label, label, label, label, 'com'].join('.')), ['garbage']);
 });
 
 test('full-line comment is a warning, not an entry', () => {
@@ -159,6 +171,12 @@ test('domain-only mode rejects IP entries', () => {
 test('ip-only mode rejects domain entries', () => {
 	const r = validate('example.com\n1.2.3.4', 'ip');
 	assert.equal(r.entries, 1);
+	assert.deepEqual(r.problems.map((p) => [p.line, p.code]), [[1, 'mode']]);
+});
+
+test('ip-only mode: the mode error wins over the IDN warning', () => {
+	const r = validate('домен.рф', 'ip');
+	assert.equal(r.entries, 0);
 	assert.deepEqual(r.problems.map((p) => [p.line, p.code]), [[1, 'mode']]);
 });
 
