@@ -26,6 +26,7 @@ export default defineConfig([
 				TextEncoder: 'readonly',
 				/* LuCI runtime */
 				_: 'readonly',
+				N_: 'readonly',
 				L: 'readonly',
 				E: 'readonly',
 				/* modules injected via 'require ...' directives */
