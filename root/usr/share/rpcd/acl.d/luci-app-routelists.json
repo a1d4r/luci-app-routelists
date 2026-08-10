@@ -1,0 +1,28 @@
+{
+	"luci-app-routelists": {
+		"description": "Grant access to LuCI user route lists app",
+		"read": {
+			"file": {
+				"/etc/user-lists": [ "list", "read" ],
+				"/etc/user-lists/*": [ "read", "list" ],
+				"/etc/init.d/zeroblock": [ "read", "list" ]
+			},
+			"ubus": {
+				"file": [ "list", "read", "stat" ]
+			},
+			"uci": [ "routelists", "zeroblock" ]
+		},
+		"write": {
+			"file": {
+				"/etc/user-lists/*": [ "write" ],
+				"/etc/init.d/zeroblock reload": [ "exec" ],
+				"/etc/init.d/zeroblock restart": [ "exec" ],
+				"/bin/mkdir -p /etc/user-lists": [ "exec" ]
+			},
+			"ubus": {
+				"file": [ "exec", "remove", "write" ]
+			},
+			"uci": [ "routelists" ]
+		}
+	}
+}

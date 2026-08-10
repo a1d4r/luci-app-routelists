@@ -1,0 +1,4 @@
+/luci-reference/
+/docs/PRD.md
+node_modules/
+.claude/settings.local.json
