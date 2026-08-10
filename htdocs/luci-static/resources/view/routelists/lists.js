@@ -136,13 +136,31 @@ return view.extend({
 	},
 
 	renderContent: function () {
-		return [
+		const nodes = [
 			E('h2', _('User Lists')),
 			E('div', { 'class': 'cbi-map-descr' },
 				_('User list files (domains / IP / CIDR) stored in %s. Attach a list to a ZeroBlock section by pasting its file path into the section\'s "User lists" field.').format(LIST_DIR)),
 			this.renderControls(),
 			E('div', { 'class': 'cbi-section' }, this.renderTable())
 		];
+
+		/* D13: ZeroBlock actions only when the init script exists;
+		   reload is the primary action, restart is secondary.
+		   Rendered as a standard page footer (cbi-page-actions). */
+		if (this.state.hasZeroblock)
+			nodes.push(E('div', { 'class': 'cbi-page-actions' },
+				new ui.ComboButton('reload', {
+					'reload': _('Apply ZeroBlock changes (reload)'),
+					'restart': _('Restart ZeroBlock')
+				}, {
+					'click': ui.createHandlerFn(this, 'handleZeroblock'),
+					'classes': {
+						'reload': 'btn cbi-button cbi-button-apply important',
+						'restart': 'btn cbi-button cbi-button-negative important'
+					}
+				}).render()));
+
+		return nodes;
 	},
 
 	renderControls: function () {
@@ -164,23 +182,6 @@ return view.extend({
 				'click': ui.createHandlerFn(this, 'handleCreate')
 			}, _('Add'))
 		];
-
-		/* D13: ZeroBlock actions only when the init script exists;
-		   reload is the primary action, restart is secondary */
-		if (this.state.hasZeroblock)
-			controls.push(
-				E('span', { 'style': 'float: right' },
-					new ui.ComboButton('reload', {
-						'reload': _('Apply ZeroBlock changes (reload)'),
-						'restart': _('Restart ZeroBlock')
-					}, {
-						'click': ui.createHandlerFn(this, 'handleZeroblock'),
-						'classes': {
-							'reload': 'btn cbi-button cbi-button-apply',
-							'restart': 'btn cbi-button cbi-button-negative'
-						}
-					}).render())
-			);
 
 		return E('div', { 'class': 'cbi-section', 'style': 'padding: .5em 0' }, controls);
 	},
