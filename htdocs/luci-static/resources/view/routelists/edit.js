@@ -270,8 +270,12 @@ return view.extend({
 
 		this.problems = res.problems;
 
-		dom.content(this.counter, _('%d entries, %d errors, %d warnings')
-			.format(res.entries, errors.length, warnings.length));
+		/* Each count needs its own plural form, so the three parts are
+		   translated separately and only then joined by a format string */
+		dom.content(this.counter, [_('%s, %s, %s').format(
+			N_(res.entries, '%d entry', '%d entries').format(res.entries),
+			N_(errors.length, '%d error', '%d errors').format(errors.length),
+			N_(warnings.length, '%d warning', '%d warnings').format(warnings.length))]);
 
 		const items = res.problems.slice(0, MAX_SHOWN_PROBLEMS).map(L.bind(function (p) {
 			return E('div', {}, E('a', {
@@ -284,9 +288,13 @@ return view.extend({
 			}, [_('line %d: %s').format(p.line, p.message)]));
 		}, this));
 
-		if (res.problems.length > MAX_SHOWN_PROBLEMS)
-			items.push(E('div', {},
-				E('em', {}, _('…and %d more problems not shown').format(res.problems.length - MAX_SHOWN_PROBLEMS))));
+		if (res.problems.length > MAX_SHOWN_PROBLEMS) {
+			const rest = res.problems.length - MAX_SHOWN_PROBLEMS;
+
+			items.push(E('div', {}, E('em', {}, [
+				N_(rest, '…and %d more problem not shown', '…and %d more problems not shown').format(rest)
+			])));
+		}
 
 		dom.content(this.issueList, items);
 
