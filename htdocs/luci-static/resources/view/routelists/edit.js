@@ -70,17 +70,21 @@ return view.extend({
 
 		return Promise.all([
 			L.resolveDefault(uci.load('routelists'), null),
-			L.resolveDefault(fs.read(LIST_DIR + '/' + file), null),
+			L.resolveDefault(fs.stat(LIST_DIR + '/' + file), null),
+			/* rpcd "file read" fails on empty (0-byte) files — existence is
+			   checked via stat above, a failed read just means no content */
+			L.resolveDefault(fs.read(LIST_DIR + '/' + file), ''),
 			L.resolveDefault(fs.stat(ZB_INIT), null)
 		]).then((data) => ({
 			file: file,
-			content: data[1],
-			hasZeroblock: data[2] != null
+			exists: data[1] != null,
+			content: data[2],
+			hasZeroblock: data[3] != null
 		}));
 	},
 
 	render: function (data) {
-		if (!data.file || data.content == null)
+		if (!data.file || !data.exists)
 			return E('div', { 'class': 'cbi-map' }, [
 				E('h2', _('Edit list')),
 				E('p', { 'class': 'alert-message warning' },
