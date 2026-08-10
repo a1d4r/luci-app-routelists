@@ -1,0 +1,47 @@
+{
+	"admin/services/routelists": {
+		"title": "User Lists",
+		"order": 60,
+		"action": {
+			"type": "alias",
+			"path": "admin/services/routelists/lists"
+		},
+		"depends": {
+			"acl": [ "luci-app-routelists" ]
+		}
+	},
+
+	"admin/services/routelists/lists": {
+		"title": "Lists",
+		"order": 10,
+		"action": {
+			"type": "view",
+			"path": "routelists/lists"
+		}
+	},
+
+	"admin/services/routelists/edit/*": {
+		"action": {
+			"type": "view",
+			"path": "routelists/edit"
+		}
+	},
+
+	"admin/services/routelists/settings": {
+		"title": "Settings",
+		"order": 20,
+		"action": {
+			"type": "view",
+			"path": "routelists/settings"
+		}
+	},
+
+	"admin/services/routelists/help": {
+		"title": "Help",
+		"order": 30,
+		"action": {
+			"type": "view",
+			"path": "routelists/help"
+		}
+	}
+}

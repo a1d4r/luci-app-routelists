@@ -1,0 +1,6 @@
+#!/bin/sh
+
+mkdir -p /etc/user-lists
+touch /etc/config/routelists
+
+return 0
