@@ -179,6 +179,19 @@ test('normalize: trims lines and converts CRLF to LF', () => {
 	assert.equal(grammar.normalize('a.com\rb.com'), 'a.com\nb.com');
 });
 
+test('deduplicate: removes later duplicate entries, keeps everything else as-is', () => {
+	const text = 'example.com\n# keep\nEXAMPLE.com\n1.2.3.4\nfoo bar\n1.2.3.4\nexample.org';
+	assert.equal(
+		grammar.deduplicate(text),
+		'example.com\n# keep\n1.2.3.4\nfoo bar\nexample.org'
+	);
+});
+
+test('deduplicate: text without duplicates is returned unchanged', () => {
+	const text = 'a.com\nb.com\n\n# c\n';
+	assert.equal(grammar.deduplicate(text), text);
+});
+
 test('performance: 10k lines validate in under 1 second', () => {
 	const chunk = ['example%d.com', '10.0.%d.1', '2a00::%d', 'bad line %d', '# c %d'];
 	const lines = [];

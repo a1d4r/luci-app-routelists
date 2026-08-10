@@ -246,5 +246,24 @@ return baseclass.extend({
 	   silent normalization is allowed only for whitespace and line endings). */
 	normalize: function (text) {
 		return String(text || '').split(/\r\n|\r|\n/).map((l) => l.trim()).join('\n');
+	},
+
+	/* D14: explicit user action only — drop later duplicates of valid
+	   entries (case-insensitive), keep all other lines untouched. */
+	deduplicate: function (text) {
+		const seen = new Set();
+
+		return String(text || '').split(/\r\n|\r|\n/).filter((raw) => {
+			const c = classifyLine(raw);
+
+			if (c.type != 'domain' && c.type != 'ip')
+				return true;
+
+			if (seen.has(c.key))
+				return false;
+
+			seen.add(c.key);
+			return true;
+		}).join('\n');
 	}
 });
