@@ -20,13 +20,6 @@
 		}
 	},
 
-	"admin/services/routelists/edit/*": {
-		"action": {
-			"type": "view",
-			"path": "routelists/edit"
-		}
-	},
-
 	"admin/services/routelists/settings": {
 		"title": "Settings",
 		"order": 20,
