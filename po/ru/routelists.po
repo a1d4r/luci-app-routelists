@@ -1,0 +1,330 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: luci-app-routelists\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+
+msgid "%d entries, %d errors, %d warnings"
+msgstr "%d записей, %d ошибок, %d предупреждений"
+
+msgid "A list named \"%s\" already exists."
+msgstr "Список с именем «%s» уже существует."
+
+msgid "Actions"
+msgstr "Действия"
+
+msgid "Add"
+msgstr "Добавить"
+
+msgid "After saving a list, show a reminder that changes take effect only after applying (reload) ZeroBlock."
+msgstr "После сохранения списка показывать напоминание, что изменения вступят в силу только после применения (reload) ZeroBlock."
+
+msgid "Allowed in modes"
+msgstr "Допустим в режимах"
+
+msgid "Apply ZeroBlock changes (reload)"
+msgstr "Применить изменения ZeroBlock (reload)"
+
+msgid "Attaching a list to a ZeroBlock section"
+msgstr "Подключение списка к секции ZeroBlock"
+
+msgid "Auto"
+msgstr "Авто"
+
+msgid "Auto, Domains only"
+msgstr "Авто, Только домены"
+
+msgid "Auto, IP only"
+msgstr "Авто, Только IP"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Back to lists"
+msgstr "К спискам"
+
+msgid "Backups"
+msgstr "Резервные копии"
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Check mode"
+msgstr "Режим проверки"
+
+msgid "Check modes"
+msgstr "Режимы проверки"
+
+msgid "Comments (# ...) in list files are not documented by ZeroBlock. Its auto-detection is binary: a line with \"/\" or consisting of digits and dots is treated as IP/CIDR, everything else — including a comment line — silently becomes a \"domain\". That is why comments produce a warning here, and why invalid lines are worth fixing: ZeroBlock will never report them."
+msgstr "Комментарии (# ...) в файлах списков не документированы ZeroBlock. Его автодетект бинарный: строка с «/» или состоящая из цифр и точек считается IP/CIDR, всё остальное — включая строку комментария — молча становится «доменом». Поэтому комментарии здесь помечаются предупреждением, а невалидные строки стоит исправлять: сам ZeroBlock о них никогда не сообщит."
+
+msgid "Copied"
+msgstr "Скопировано"
+
+msgid "Copy path"
+msgstr "Копировать путь"
+
+msgid "Copy the list path on the Lists tab (\"Copy path\")."
+msgstr "Скопируйте путь списка на вкладке «Списки» (кнопка «Копировать путь»)."
+
+msgid "Delete"
+msgstr "Удалить"
+
+msgid "Delete list"
+msgstr "Удаление списка"
+
+msgid "Delete list \"%s\"? The file will be removed permanently."
+msgstr "Удалить список «%s»? Файл будет удалён безвозвратно."
+
+msgid "Deleting lists that are in use"
+msgstr "Удаление используемых списков"
+
+msgid "Domain"
+msgstr "Домен"
+
+msgid "Domains only"
+msgstr "Только домены"
+
+msgid "Edit"
+msgstr "Редактировать"
+
+msgid "Edit list"
+msgstr "Редактирование списка"
+
+msgid "Edit list: %s"
+msgstr "Редактирование списка: %s"
+
+msgid "Empty line"
+msgstr "Пустая строка"
+
+msgid "Entries"
+msgstr "Записей"
+
+msgid "Entry formats verified against ZeroBlock full manual v0.8.4-r248, section 11."
+msgstr "Форматы записей сверены с полным руководством ZeroBlock v0.8.4-r248, раздел 11."
+
+msgid "Example"
+msgstr "Пример"
+
+msgid "Failed to create list: %s"
+msgstr "Не удалось создать список: %s"
+
+msgid "Failed to delete list: %s"
+msgstr "Не удалось удалить список: %s"
+
+msgid "Failed to rename list: %s"
+msgstr "Не удалось переименовать список: %s"
+
+msgid "Failed to run ZeroBlock %s: %s"
+msgstr "Не удалось выполнить ZeroBlock %s: %s"
+
+msgid "Failed to save list: %s"
+msgstr "Не удалось сохранить список: %s"
+
+msgid "Format"
+msgstr "Формат"
+
+msgid "Help"
+msgstr "Справка"
+
+msgid "IP only"
+msgstr "Только IP"
+
+msgid "IPv4"
+msgstr "IPv4"
+
+msgid "IPv4 CIDR"
+msgstr "IPv4 CIDR"
+
+msgid "IPv6"
+msgstr "IPv6"
+
+msgid "IPv6 CIDR"
+msgstr "IPv6 CIDR"
+
+msgid "If a file referenced by a ZeroBlock section disappears, then depending on lists_failure_mode the section may be disabled (degrade) or the whole proxy service may stop (teardown). Remove the path from the sections before deleting a list."
+msgstr "Если файл, на который ссылается секция ZeroBlock, исчезнет, то в зависимости от lists_failure_mode секция может отключиться (degrade) или остановится весь прокси-сервис (teardown). Уберите путь из секций до удаления списка."
+
+msgid "Invalid list name — allowed: letters, digits, \"-\" and \"_\", at most 32 characters."
+msgstr "Недопустимое имя списка — разрешены латинские буквы, цифры, «-» и «_», не более 32 символов."
+
+msgid "Leave"
+msgstr "Уйти"
+
+msgid "List file \"%s\" was not found in %s."
+msgstr "Файл списка «%s» не найден в %s."
+
+msgid "List name"
+msgstr "Имя списка"
+
+msgid "Lists"
+msgstr "Списки"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "New name for list \"%s\" (the file keeps the .txt extension):"
+msgstr "Новое имя списка «%s» (файл сохранит расширение .txt):"
+
+msgid "No list name given."
+msgstr "Имя списка не указано."
+
+msgid "No lists yet. Create the first one and attach it to a ZeroBlock section via its file path."
+msgstr "Списков пока нет. Создайте первый — и подключите к секции ZeroBlock по пути к файлу."
+
+msgid "Not saved: the file exceeds the 1 MiB limit."
+msgstr "Не сохранено: файл превышает лимит 1 МиБ."
+
+msgid "Not saved: the list has problems. Fix them or use \"Save with warnings/errors\"."
+msgstr "Не сохранено: в списке есть проблемы. Исправьте их или используйте «Сохранить с предупреждениями/ошибками»."
+
+msgid "One entry per line, plain text. The following are rejected as errors because the ZeroBlock file contract explicitly excludes them: %s prefixes, hosts-style lines (%s) and adblock syntax (%s). Those notations only work when entered manually inside a ZeroBlock section, not in list files."
+msgstr "Одна запись на строку, обычный текст. Следующее отклоняется как ошибка, поскольку контракт файлов ZeroBlock явно это исключает: префиксы %s, hosts-строки (%s) и adblock-синтаксис (%s). Эти нотации работают только при ручном вводе внутри секции ZeroBlock, но не в файлах списков."
+
+msgid "Open the desired section in ZeroBlock."
+msgstr "Откройте нужную секцию в ZeroBlock."
+
+msgid "Paste the path into the \"User lists\" field and apply."
+msgstr "Вставьте путь в поле «Пользовательские списки» и примените."
+
+msgid "Paste this path into the \"User lists\" field of a ZeroBlock section"
+msgstr "Вставьте этот путь в поле «Пользовательские списки» секции ZeroBlock"
+
+msgid "Path"
+msgstr "Путь"
+
+msgid "Public, ready-made lists are better attached directly by URL in ZeroBlock; this app is for maintaining your own local lists."
+msgstr "Готовые публичные списки лучше подключать в ZeroBlock напрямую по URL; это приложение — для ведения собственных локальных списков."
+
+msgid "Remove duplicates"
+msgstr "Удалить дубликаты"
+
+msgid "Rename"
+msgstr "Переименовать"
+
+msgid "Rename list"
+msgstr "Переименование списка"
+
+msgid "Restart ZeroBlock"
+msgstr "Перезапустить ZeroBlock"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Save & Apply (reload)"
+msgstr "Сохранить и применить (reload)"
+
+msgid "Save & Restart"
+msgstr "Сохранить и перезапустить (restart)"
+
+msgid "Save with warnings/errors"
+msgstr "Сохранить с предупреждениями/ошибками"
+
+msgid "Saved. Changes take effect after applying (reload) ZeroBlock."
+msgstr "Сохранено. Изменения вступят в силу после применения (reload) ZeroBlock."
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Stay"
+msgstr "Остаться"
+
+msgid "Storage directory"
+msgstr "Каталог хранения"
+
+msgid "Suggest applying ZeroBlock after saving"
+msgstr "Предлагать применение ZeroBlock после сохранения"
+
+msgid "Supported entry formats"
+msgstr "Поддерживаемые форматы записей"
+
+msgid "Switch to its Lists tab."
+msgstr "Перейдите на её вкладку «Списки»."
+
+msgid "The check mode only affects validation in this app; ZeroBlock itself always auto-detects each line. \"Auto\" accepts every valid entry type, \"Domains only\" and \"IP only\" restrict the list to one entry type — useful to catch mistakes in lists meant for a single purpose."
+msgstr "Режим проверки влияет только на валидацию в этом приложении; сам ZeroBlock всегда автоматически определяет тип каждой строки. «Авто» принимает все валидные типы записей, «Только домены» и «Только IP» ограничивают список одним типом — это помогает ловить ошибки в списках, предназначенных для одной цели."
+
+msgid "The directory is fixed by the access policy (ACL). Changing it is only possible by editing the ACL file manually."
+msgstr "Каталог фиксирован политикой доступа (ACL). Сменить его можно только правкой ACL-файла вручную."
+
+msgid "The list has unsaved changes. Leave without saving?"
+msgstr "В списке есть несохранённые изменения. Уйти без сохранения?"
+
+msgid "The lists (/etc/user-lists) and this app's settings are included in the standard LuCI configuration backup. A sysupgrade without keeping settings erases them — make a backup before flashing."
+msgstr "Списки (/etc/user-lists) и настройки этого приложения входят в штатную резервную копию конфигурации LuCI. Sysupgrade без сохранения настроек стирает их — сделайте резервную копию перед прошивкой."
+
+msgid "This file is referenced by ZeroBlock section(s): %s. Depending on lists_failure_mode, a missing file may disable the section or stop the whole proxy service (teardown). Remove the path from the sections first."
+msgstr "На этот файл ссылаются секции ZeroBlock: %s. В зависимости от lists_failure_mode отсутствующий файл может отключить секцию или остановить весь прокси-сервис (teardown). Сначала уберите путь из секций."
+
+msgid "This file is referenced by ZeroBlock section(s): %s. The paths there are not updated automatically — fix them manually after renaming."
+msgstr "На этот файл ссылаются секции ZeroBlock: %s. Пути в них не обновляются автоматически — поправьте их вручную после переименования."
+
+msgid "Unsaved changes"
+msgstr "Несохранённые изменения"
+
+msgid "User Lists"
+msgstr "Пользовательские списки"
+
+msgid "User Lists — Help"
+msgstr "Пользовательские списки — Справка"
+
+msgid "User Lists — Settings"
+msgstr "Пользовательские списки — Настройки"
+
+msgid "User list files (domains / IP / CIDR) stored in %s. Attach a list to a ZeroBlock section by pasting its file path into the section's \"User lists\" field."
+msgstr "Файлы пользовательских списков (домены / IP / CIDR) в каталоге %s. Подключите список к секции ZeroBlock, вставив путь к файлу в поле «Пользовательские списки» секции."
+
+msgid "Why comments are flagged"
+msgstr "Почему комментарии помечаются"
+
+msgid "ZeroBlock %s failed (exit code %d)."
+msgstr "ZeroBlock %s завершился с ошибкой (код %d)."
+
+msgid "ZeroBlock %s finished successfully."
+msgstr "ZeroBlock %s выполнен успешно."
+
+msgid "adblock syntax is explicitly excluded by the ZeroBlock file contract (manual 11.1)"
+msgstr "adblock-синтаксис явно исключён контрактом файлов ZeroBlock (manual 11.1)"
+
+msgid "all"
+msgstr "все"
+
+msgid "comments in list files are not documented by ZeroBlock — the line may be interpreted as a domain"
+msgstr "комментарии в файлах списков не документированы ZeroBlock — строка может быть интерпретирована как домен"
+
+msgid "duplicate of line %d"
+msgstr "дубликат строки %d"
+
+msgid "hosts-style format is explicitly excluded by the ZeroBlock file contract (manual 11.1)"
+msgstr "hosts-формат явно исключён контрактом файлов ZeroBlock (manual 11.1)"
+
+msgid "inline comments are not documented by ZeroBlock — the whole line may be interpreted as a domain"
+msgstr "inline-комментарии не документированы ZeroBlock — вся строка может быть интерпретирована как домен"
+
+msgid "line %d: %s"
+msgstr "строка %d: %s"
+
+msgid "non-ASCII (IDN) domain is not documented by ZeroBlock — consider the punycode form: %s"
+msgstr "IDN-домен (не-ASCII) не документирован ZeroBlock — рассмотрите punycode-вариант: %s"
+
+msgid "not a domain (this list allows domains only)"
+msgstr "не домен (в этом списке разрешены только домены)"
+
+msgid "not a domain or IP/CIDR"
+msgstr "не домен и не IP/CIDR"
+
+msgid "not an IP/CIDR (this list allows IP entries only)"
+msgstr "не IP/CIDR (в этом списке разрешены только IP-записи)"
+
+msgid "prefixes are not supported in list files (ZeroBlock contract, manual 11.1) — they only work when entered manually in a section"
+msgstr "префиксы не поддерживаются в файлах списков (контракт ZeroBlock, manual 11.1) — они работают только при ручном вводе в секции"
+
+msgid "…and %d more problems not shown"
+msgstr "…и ещё %d проблем не показано"

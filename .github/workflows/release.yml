@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # checkout into a subdirectory so the workspace forms a valid
+      # one-package OpenWrt feed for the SDK action
+      - uses: actions/checkout@v4
+        with:
+          path: luci-app-routelists
+
+      - name: Build ipk with OpenWrt SDK
+        uses: openwrt/gh-action-sdk@v7
+        env:
+          ARCH: x86_64-24.10.0
+          PACKAGES: luci-app-routelists luci-i18n-routelists-ru
+          NO_REFRESH_CHECK: true
+
+      - name: List built packages
+        run: find bin -name '*routelists*'
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            bin/packages/*/*/luci-app-routelists*.ipk
+            bin/packages/*/*/luci-i18n-routelists-ru*.ipk
+          generate_release_notes: true
