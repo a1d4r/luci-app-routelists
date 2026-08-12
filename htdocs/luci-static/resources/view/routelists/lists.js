@@ -42,6 +42,21 @@ function errText(err) {
 	return (err instanceof Error) ? err.message : rpc.getStatusText(err);
 }
 
+/* Deliberately not uci.apply(): that is apply-with-rollback, whose deferred
+   confirm step runs detached and unretried in luci-base — when it misfires,
+   rpcd silently reverts the config 10 s later and the page state desyncs
+   (phantom sections, "no data" / "access denied" on later applies). The
+   routelists config is metadata only and cannot cut connectivity, so it is
+   applied unchecked. apply is skipped when nothing is staged (rpcd answers
+   NO_DATA otherwise), and the header's "Unsaved Changes" badge is refreshed,
+   since it snapshots the changeset when uci.save() reloads the config. */
+function saveAndApply() {
+	return uci.save()
+		.then(() => uci.changes())
+		.then((changes) => Object.keys(changes).length ? uci.callApply(0, false) : null)
+		.then(() => ui.changes.init());
+}
+
 /* Empty files are not read at all (their content is known); fs.read_direct()
    bypasses the ubus message size limit, so large lists are counted correctly.
    null means the read genuinely failed and the content is unknown. */
@@ -321,7 +336,7 @@ return view.extend({
 				uci.set('routelists', sid, 'name', name);
 				uci.set('routelists', sid, 'mode', mode);
 
-				return uci.save().then(() => uci.apply());
+				return saveAndApply();
 			})
 			.then(L.bind(this.refresh, this))
 			.then(L.bind(function () {
@@ -658,7 +673,7 @@ return view.extend({
 				uci.set('routelists', sid, 'name', newName);
 				uci.set('routelists', sid, 'mode', mode);
 
-				return uci.save().then(() => uci.apply());
+				return saveAndApply();
 			})
 			.then(() => true)
 			.catch((err) => {
@@ -734,7 +749,7 @@ return view.extend({
 
 				uci.remove('routelists', sid);
 
-				return uci.save().then(() => uci.apply());
+				return saveAndApply();
 			})
 			.then(L.bind(function () {
 				ui.hideModal();
