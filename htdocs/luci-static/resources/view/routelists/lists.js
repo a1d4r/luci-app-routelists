@@ -313,6 +313,9 @@ return view.extend({
 		return fs.exec('/bin/mkdir', ['-p', LIST_DIR])
 			.then(() => fs.write(filePath(file), ''))
 			.then(() => {
+				if (mode == 'auto')
+					return; /* no record needed for the default mode (D6) */
+
 				const sid = uci.add('routelists', 'list');
 
 				uci.set('routelists', sid, 'name', name);
@@ -641,6 +644,12 @@ return view.extend({
 
 				if (!sid && mode == 'auto')
 					return; /* no record needed for the default mode (D6) */
+
+				/* unchanged values produce no uci delta, and uci.apply()
+				   without staged changes fails with UBUS_STATUS_NO_DATA */
+				if (sid && uci.get('routelists', sid, 'name') == newName &&
+				    uci.get('routelists', sid, 'mode') == mode)
+					return;
 
 				if (!sid) {
 					sid = uci.add('routelists', 'list');
