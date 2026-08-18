@@ -18,6 +18,16 @@ const MODES = ['auto', 'domain', 'ip'];
 const MAX_SIZE = 102400;
 const MAX_SHOWN_PROBLEMS = 100;
 
+/* D13: applying list changes goes through the daemon's own ubus method —
+   the init script's reload is only a SIGHUP (procd_send_signal) and does
+   not re-read user list files; scope "lists" does. */
+const callZeroblockReload = rpc.declare({
+	object: 'zeroblock',
+	method: 'reload',
+	params: ['scope'],
+	reject: true
+});
+
 function modeLabel(mode) {
 	switch (mode) {
 	case 'domain':
@@ -203,21 +213,14 @@ return view.extend({
 			E('div', { 'class': 'cbi-section' }, this.renderTable())
 		];
 
-		/* D13: ZeroBlock actions only when the init script exists;
-		   reload is the primary action, restart is secondary.
-		   Rendered as a standard page footer (cbi-page-actions). */
+		/* D13: ZeroBlock apply only when the init script exists;
+		   rendered as a standard page footer (cbi-page-actions). */
 		if (this.state.hasZeroblock)
 			nodes.push(E('div', { 'class': 'cbi-page-actions' },
-				new ui.ComboButton('reload', {
-					'reload': _('Apply ZeroBlock changes (reload)'),
-					'restart': _('Restart ZeroBlock')
-				}, {
-					'click': ui.createHandlerFn(this, 'handleZeroblock'),
-					'classes': {
-						'reload': 'btn cbi-button cbi-button-apply important',
-						'restart': 'btn cbi-button cbi-button-negative important'
-					}
-				}).render()));
+				E('button', {
+					'class': 'btn cbi-button cbi-button-apply important',
+					'click': ui.createHandlerFn(this, 'runZeroblock')
+				}, _('Apply ZeroBlock changes (reload)'))));
 
 		return nodes;
 	},
@@ -421,8 +424,8 @@ return view.extend({
 
 		/* Cancel must be the first button in the row: Esc (ui.cancelModal)
 		   clicks the first '.right > button', which routes it through the
-		   unsaved-changes check. D13: apply actions only when the init
-		   script exists; reload is primary, restart is secondary. */
+		   unsaved-changes check. D13: the apply button only when the init
+		   script exists. */
 		const buttons = [
 			E('button', {
 				'class': 'btn',
@@ -437,16 +440,10 @@ return view.extend({
 		];
 
 		if (this.state.hasZeroblock)
-			buttons.push(' ', new ui.ComboButton('reload', {
-				'reload': _('Save & Apply (reload)'),
-				'restart': _('Save & Restart')
-			}, {
-				'click': ui.createHandlerFn(this, 'handleEditorSaveApply'),
-				'classes': {
-					'reload': 'btn cbi-button cbi-button-apply important',
-					'restart': 'btn cbi-button cbi-button-negative important'
-				}
-			}).render());
+			buttons.push(' ', E('button', {
+				'class': 'btn cbi-button cbi-button-apply important',
+				'click': ui.createHandlerFn(this, 'handleEditorSaveApply')
+			}, _('Save & Apply (reload)')));
 
 		/* Dynamic strings are passed as array children: a bare string child is
 		   assigned via innerHTML by dom.append(), an array becomes text nodes */
@@ -702,16 +699,14 @@ return view.extend({
 		}, this));
 	},
 
-	handleEditorSaveApply: function (ev, action) {
+	handleEditorSaveApply: function () {
 		return this.doEditorSave(false).then(L.bind(function (saved) {
 			if (!saved)
 				return;
 
 			this.closeEditor();
 
-			return this.refresh().then(L.bind(function () {
-				return this.runZeroblock(action);
-			}, this));
+			return this.refresh().then(L.bind(this.runZeroblock, this));
 		}, this));
 	},
 
@@ -762,27 +757,17 @@ return view.extend({
 			});
 	},
 
-	runZeroblock: function (action) {
-		return fs.exec(ZB_INIT, [action]).then(function (res) {
-			const out = [res.stdout, res.stderr].filter((s) => s).join('\n').trim();
-			const body = [];
-
-			if (res.code === 0)
-				body.push(E('p', _('ZeroBlock %s finished successfully.').format(action)));
+	runZeroblock: function () {
+		return callZeroblockReload('lists').then(function (res) {
+			if (res && res.status == 'ok')
+				ui.addNotification(null,
+					E('p', _('ZeroBlock reload finished successfully.')), 'info');
 			else
-				body.push(E('p', _('ZeroBlock %s failed (exit code %d).').format(action, res.code)));
-
-			if (out)
-				body.push(E('pre', {}, [out]));
-
-			ui.addNotification(null, body, res.code === 0 ? 'info' : 'error');
+				ui.addNotification(null,
+					E('p', [_('ZeroBlock reload failed: %s').format(JSON.stringify(res))]), 'error');
 		}).catch(function (err) {
 			ui.addNotification(null,
-				E('p', [_('Failed to run ZeroBlock %s: %s').format(action, errText(err))]), 'error');
+				E('p', [_('Failed to run ZeroBlock reload: %s').format(errText(err))]), 'error');
 		});
-	},
-
-	handleZeroblock: function (ev, action) {
-		return this.runZeroblock(action);
 	}
 });

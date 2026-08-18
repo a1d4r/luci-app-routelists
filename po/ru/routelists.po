@@ -133,8 +133,8 @@ msgid "Failed to read the list file: %s. The editor stays closed so that the "
 msgstr "Не удалось прочитать файл списка: %s. Редактор не открыт, чтобы файл "
 "нельзя было перезаписать пустым содержимым."
 
-msgid "Failed to run ZeroBlock %s: %s"
-msgstr "Не удалось выполнить ZeroBlock %s: %s"
+msgid "Failed to run ZeroBlock reload: %s"
+msgstr "Не удалось выполнить ZeroBlock reload: %s"
 
 msgid "Failed to save list: %s"
 msgstr "Не удалось сохранить список: %s"
@@ -211,17 +211,11 @@ msgstr "Готовые публичные списки лучше подключ
 msgid "Remove duplicates"
 msgstr "Удалить дубликаты"
 
-msgid "Restart ZeroBlock"
-msgstr "Перезапустить ZeroBlock"
-
 msgid "Save"
 msgstr "Сохранить"
 
 msgid "Save & Apply (reload)"
 msgstr "Сохранить и применить (reload)"
-
-msgid "Save & Restart"
-msgstr "Сохранить и перезапустить (restart)"
 
 msgid "Save with warnings/errors"
 msgstr "Сохранить с предупреждениями/ошибками"
@@ -291,11 +285,11 @@ msgstr "Файлы пользовательских списков (домены
 msgid "Why comments are flagged"
 msgstr "Почему комментарии помечаются"
 
-msgid "ZeroBlock %s failed (exit code %d)."
-msgstr "ZeroBlock %s завершился с ошибкой (код %d)."
+msgid "ZeroBlock reload failed: %s"
+msgstr "ZeroBlock reload завершился с ошибкой: %s"
 
-msgid "ZeroBlock %s finished successfully."
-msgstr "ZeroBlock %s выполнен успешно."
+msgid "ZeroBlock reload finished successfully."
+msgstr "ZeroBlock reload выполнен успешно."
 
 msgid "adblock syntax is explicitly excluded by the ZeroBlock file contract (manual 11.1)"
 msgstr "adblock-синтаксис явно исключён контрактом файлов ZeroBlock (manual 11.1)"

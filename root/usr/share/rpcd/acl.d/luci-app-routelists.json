@@ -15,12 +15,11 @@
 		"write": {
 			"file": {
 				"/etc/user-lists/*": [ "write" ],
-				"/etc/init.d/zeroblock reload": [ "exec" ],
-				"/etc/init.d/zeroblock restart": [ "exec" ],
 				"/bin/mkdir -p /etc/user-lists": [ "exec" ]
 			},
 			"ubus": {
-				"file": [ "exec", "remove", "write" ]
+				"file": [ "exec", "remove", "write" ],
+				"zeroblock": [ "reload" ]
 			},
 			"uci": [ "routelists" ]
 		}
