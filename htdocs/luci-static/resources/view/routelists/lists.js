@@ -220,7 +220,7 @@ return view.extend({
 				E('button', {
 					'class': 'btn cbi-button cbi-button-apply important',
 					'click': ui.createHandlerFn(this, 'runZeroblock')
-				}, _('Apply ZeroBlock changes (reload)'))));
+				}, _('Apply ZeroBlock changes'))));
 
 		return nodes;
 	},
@@ -443,7 +443,7 @@ return view.extend({
 			buttons.push(' ', E('button', {
 				'class': 'btn cbi-button cbi-button-apply important',
 				'click': ui.createHandlerFn(this, 'handleEditorSaveApply')
-			}, _('Save & Apply (reload)')));
+			}, _('Save & Apply')));
 
 		/* Dynamic strings are passed as array children: a bare string child is
 		   assigned via innerHTML by dom.append(), an array becomes text nodes */
@@ -685,7 +685,7 @@ return view.extend({
 			return;
 
 		ui.addNotification(null,
-			E('p', _('Saved. Changes take effect after applying (reload) ZeroBlock.')), 'info');
+			E('p', _('Saved. Changes take effect after applying them to ZeroBlock.')), 'info');
 	},
 
 	handleEditorSave: function (force) {

@@ -1,62 +1,61 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=UTF-8"
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:276
+#: htdocs/luci-static/resources/view/routelists/lists.js:559
 msgid "%d entry"
 msgid_plural "%d entries"
 msgstr[0] ""
 msgstr[1] ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:277
+#: htdocs/luci-static/resources/view/routelists/lists.js:560
 msgid "%d error"
 msgid_plural "%d errors"
 msgstr[0] ""
 msgstr[1] ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:278
+#: htdocs/luci-static/resources/view/routelists/lists.js:561
 msgid "%d warning"
 msgid_plural "%d warnings"
 msgstr[0] ""
 msgstr[1] ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:275
+#: htdocs/luci-static/resources/view/routelists/lists.js:558
 msgid "%s, %s, %s"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:285
-#: htdocs/luci-static/resources/view/routelists/lists.js:353
+#: htdocs/luci-static/resources/view/routelists/lists.js:325
+#: htdocs/luci-static/resources/view/routelists/lists.js:628
 msgid "A list named \"%s\" already exists."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:219
-#: htdocs/luci-static/resources/view/routelists/lists.js:242
+#: htdocs/luci-static/resources/view/routelists/lists.js:266
+#: htdocs/luci-static/resources/view/routelists/lists.js:289
 msgid "Actions"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:198
+#: htdocs/luci-static/resources/view/routelists/lists.js:245
 msgid "Add"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/routelists/settings.js:22
 msgid ""
 "After saving a list, show a reminder that changes take effect only after "
-"applying (reload) ZeroBlock."
+"applying them to ZeroBlock."
 msgstr ""
 
 #: htdocs/luci-static/resources/view/routelists/help.js:26
 msgid "Allowed in modes"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:168
-msgid "Apply ZeroBlock changes (reload)"
+#: htdocs/luci-static/resources/view/routelists/lists.js:223
+msgid "Apply ZeroBlock changes"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/routelists/help.js:44
 msgid "Attaching a list to a ZeroBlock section"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:31
-#: htdocs/luci-static/resources/view/routelists/lists.js:22
+#: htdocs/luci-static/resources/view/routelists/lists.js:38
 msgid "Auto"
 msgstr ""
 
@@ -71,26 +70,18 @@ msgstr ""
 msgid "Auto, IP only"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:206
-msgid "Back"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:129
-msgid "Back to lists"
-msgstr ""
-
 #: htdocs/luci-static/resources/view/routelists/help.js:56
 msgid "Backups"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:329
-#: htdocs/luci-static/resources/view/routelists/lists.js:399
+#: htdocs/luci-static/resources/view/routelists/lists.js:433
+#: htdocs/luci-static/resources/view/routelists/lists.js:724
 msgid "Cancel"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:222
-#: htdocs/luci-static/resources/view/routelists/lists.js:215
-#: htdocs/luci-static/resources/view/routelists/lists.js:229
+#: htdocs/luci-static/resources/view/routelists/lists.js:262
+#: htdocs/luci-static/resources/view/routelists/lists.js:276
+#: htdocs/luci-static/resources/view/routelists/lists.js:453
 msgid "Check mode"
 msgstr ""
 
@@ -107,15 +98,13 @@ msgid ""
 "invalid lines are worth fixing: ZeroBlock will never report them."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:431
-#: htdocs/luci-static/resources/view/routelists/lists.js:267
+#: htdocs/luci-static/resources/view/routelists/lists.js:307
 msgid "Copied"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:232
-#: htdocs/luci-static/resources/view/routelists/edit.js:433
-#: htdocs/luci-static/resources/view/routelists/lists.js:240
-#: htdocs/luci-static/resources/view/routelists/lists.js:269
+#: htdocs/luci-static/resources/view/routelists/lists.js:287
+#: htdocs/luci-static/resources/view/routelists/lists.js:309
+#: htdocs/luci-static/resources/view/routelists/lists.js:464
 msgid "Copy path"
 msgstr ""
 
@@ -123,16 +112,16 @@ msgstr ""
 msgid "Copy the list path on the Lists tab (\"Copy path\")."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:258
-#: htdocs/luci-static/resources/view/routelists/lists.js:406
+#: htdocs/luci-static/resources/view/routelists/lists.js:298
+#: htdocs/luci-static/resources/view/routelists/lists.js:731
 msgid "Delete"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:409
+#: htdocs/luci-static/resources/view/routelists/lists.js:734
 msgid "Delete list"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:389
+#: htdocs/luci-static/resources/view/routelists/lists.js:714
 msgid "Delete list \"%s\"? The file will be removed permanently."
 msgstr ""
 
@@ -144,29 +133,25 @@ msgstr ""
 msgid "Domain"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:27
-#: htdocs/luci-static/resources/view/routelists/lists.js:18
+#: htdocs/luci-static/resources/view/routelists/lists.js:34
 msgid "Domains only"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:248
+#: htdocs/luci-static/resources/view/routelists/lists.js:293
 msgid "Edit"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:122
+#: htdocs/luci-static/resources/view/routelists/lists.js:486
+#: htdocs/luci-static/resources/view/routelists/lists.js:511
 msgid "Edit list"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:220
-msgid "Edit list: %s"
 msgstr ""
 
 #: htdocs/luci-static/resources/view/routelists/help.js:28
 msgid "Empty line"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:216
-#: htdocs/luci-static/resources/view/routelists/lists.js:230
+#: htdocs/luci-static/resources/view/routelists/lists.js:263
+#: htdocs/luci-static/resources/view/routelists/lists.js:277
 msgid "Entries"
 msgstr ""
 
@@ -179,30 +164,25 @@ msgstr ""
 msgid "Example"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:305
+#: htdocs/luci-static/resources/view/routelists/lists.js:352
 msgid "Failed to create list: %s"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:431
+#: htdocs/luci-static/resources/view/routelists/lists.js:756
 msgid "Failed to delete list: %s"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:113
+#: htdocs/luci-static/resources/view/routelists/lists.js:365
 msgid ""
 "Failed to read the list file: %s. The editor stays closed so that the file "
 "cannot be overwritten with empty content."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:384
-msgid "Failed to rename list: %s"
+#: htdocs/luci-static/resources/view/routelists/lists.js:770
+msgid "Failed to run ZeroBlock reload: %s"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:422
-#: htdocs/luci-static/resources/view/routelists/lists.js:451
-msgid "Failed to run ZeroBlock %s: %s"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:374
+#: htdocs/luci-static/resources/view/routelists/lists.js:677
 msgid "Failed to save list: %s"
 msgstr ""
 
@@ -214,12 +194,11 @@ msgstr ""
 msgid "Grant access to LuCI user route lists app"
 msgstr ""
 
-#: root/usr/share/luci/menu.d/luci-app-routelists.json:40
+#: root/usr/share/luci/menu.d/luci-app-routelists.json:33
 msgid "Help"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:29
-#: htdocs/luci-static/resources/view/routelists/lists.js:20
+#: htdocs/luci-static/resources/view/routelists/lists.js:36
 msgid "IP only"
 msgstr ""
 
@@ -247,26 +226,18 @@ msgid ""
 "deleting a list."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:86
-msgid "Invalid list name in the address."
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/lists.js:280
-#: htdocs/luci-static/resources/view/routelists/lists.js:345
+#: htdocs/luci-static/resources/view/routelists/lists.js:320
+#: htdocs/luci-static/resources/view/routelists/lists.js:623
 msgid ""
 "Invalid list name — allowed: letters, digits, \"-\" and \"_\", at most 32 "
 "characters."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:455
+#: htdocs/luci-static/resources/view/routelists/lists.js:518
 msgid "Leave"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:99
-msgid "List file \"%s\" was not found in %s."
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/lists.js:188
+#: htdocs/luci-static/resources/view/routelists/lists.js:235
 msgid "List name"
 msgstr ""
 
@@ -274,30 +245,23 @@ msgstr ""
 msgid "Lists"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:214
-#: htdocs/luci-static/resources/view/routelists/lists.js:228
+#: htdocs/luci-static/resources/view/routelists/lists.js:261
+#: htdocs/luci-static/resources/view/routelists/lists.js:275
+#: htdocs/luci-static/resources/view/routelists/lists.js:452
 msgid "Name"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:317
-msgid "New name for list \"%s\" (the file keeps the .txt extension):"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:83
-msgid "No list name given."
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/lists.js:210
+#: htdocs/luci-static/resources/view/routelists/lists.js:257
 msgid ""
 "No lists yet. Create the first one and attach it to a ZeroBlock section via "
 "its file path."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:347
+#: htdocs/luci-static/resources/view/routelists/lists.js:646
 msgid "Not saved: the file exceeds the %d KiB limit."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:341
+#: htdocs/luci-static/resources/view/routelists/lists.js:640
 msgid ""
 "Not saved: the list has problems. Fix them or use \"Save with warnings/"
 "errors\"."
@@ -319,13 +283,13 @@ msgstr ""
 msgid "Paste the path into the \"User lists\" field and apply."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:230
-#: htdocs/luci-static/resources/view/routelists/lists.js:238
+#: htdocs/luci-static/resources/view/routelists/lists.js:285
+#: htdocs/luci-static/resources/view/routelists/lists.js:462
 msgid "Paste this path into the \"User lists\" field of a ZeroBlock section"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:218
-#: htdocs/luci-static/resources/view/routelists/lists.js:233
+#: htdocs/luci-static/resources/view/routelists/lists.js:265
+#: htdocs/luci-static/resources/view/routelists/lists.js:280
 msgid "Path"
 msgstr ""
 
@@ -335,53 +299,36 @@ msgid ""
 "this app is for maintaining your own local lists."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:178
+#: htdocs/luci-static/resources/view/routelists/lists.js:423
 msgid "Remove duplicates"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:253
-#: htdocs/luci-static/resources/view/routelists/lists.js:336
-msgid "Rename"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/lists.js:339
-msgid "Rename list"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/lists.js:169
-msgid "Restart ZeroBlock"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:201
+#: htdocs/luci-static/resources/view/routelists/lists.js:439
 msgid "Save"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:188
-msgid "Save & Apply (reload)"
+#: htdocs/luci-static/resources/view/routelists/lists.js:446
+msgid "Save & Apply"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:189
-msgid "Save & Restart"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:172
+#: htdocs/luci-static/resources/view/routelists/lists.js:417
 msgid "Save with warnings/errors"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:385
-msgid "Saved. Changes take effect after applying (reload) ZeroBlock."
+#: htdocs/luci-static/resources/view/routelists/lists.js:688
+msgid "Saved. Changes take effect after applying them to ZeroBlock."
 msgstr ""
 
-#: root/usr/share/luci/menu.d/luci-app-routelists.json:31
+#: root/usr/share/luci/menu.d/luci-app-routelists.json:24
 msgid "Settings"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:217
-#: htdocs/luci-static/resources/view/routelists/lists.js:232
+#: htdocs/luci-static/resources/view/routelists/lists.js:264
+#: htdocs/luci-static/resources/view/routelists/lists.js:279
 msgid "Size"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:447
+#: htdocs/luci-static/resources/view/routelists/lists.js:513
 msgid "Stay"
 msgstr ""
 
@@ -415,7 +362,7 @@ msgid ""
 "possible by editing the ACL file manually."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:445
+#: htdocs/luci-static/resources/view/routelists/lists.js:506
 msgid "The list has unsaved changes. Leave without saving?"
 msgstr ""
 
@@ -426,30 +373,30 @@ msgid ""
 "erases them — make a backup before flashing."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:394
+#: htdocs/luci-static/resources/view/routelists/lists.js:719
 msgid ""
 "This file is referenced by ZeroBlock section(s): %s. Depending on "
 "lists_failure_mode, a missing file may disable the section or stop the whole "
 "proxy service (teardown). Remove the path from the sections first."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:324
+#: htdocs/luci-static/resources/view/routelists/lists.js:397
 msgid ""
 "This file is referenced by ZeroBlock section(s): %s. The paths there are not "
 "updated automatically — fix them manually after renaming."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:235
+#: htdocs/luci-static/resources/view/routelists/lists.js:467
 msgid ""
 "This list is larger than %d KiB and cannot be saved back — the editor is "
 "read-only. Edit the file over SSH."
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:444
+#: htdocs/luci-static/resources/view/routelists/lists.js:505
 msgid "Unsaved changes"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:155
+#: htdocs/luci-static/resources/view/routelists/lists.js:209
 #: root/usr/share/luci/menu.d/luci-app-routelists.json:3
 msgid "User Lists"
 msgstr ""
@@ -462,7 +409,7 @@ msgstr ""
 msgid "User Lists — Settings"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:157
+#: htdocs/luci-static/resources/view/routelists/lists.js:211
 msgid ""
 "User list files (domains / IP / CIDR) stored in %s. Attach a list to a "
 "ZeroBlock section by pasting its file path into the section's \"User lists\" "
@@ -473,14 +420,12 @@ msgstr ""
 msgid "Why comments are flagged"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:414
-#: htdocs/luci-static/resources/view/routelists/lists.js:443
-msgid "ZeroBlock %s failed (exit code %d)."
+#: htdocs/luci-static/resources/view/routelists/lists.js:767
+msgid "ZeroBlock reload failed: %s"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:412
-#: htdocs/luci-static/resources/view/routelists/lists.js:441
-msgid "ZeroBlock %s finished successfully."
+#: htdocs/luci-static/resources/view/routelists/lists.js:764
+msgid "ZeroBlock reload finished successfully."
 msgstr ""
 
 #: htdocs/luci-static/resources/view/routelists/grammar.js:123
@@ -515,7 +460,7 @@ msgid ""
 "interpreted as a domain"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/edit.js:288
+#: htdocs/luci-static/resources/view/routelists/lists.js:571
 msgid "line %d: %s"
 msgstr ""
 
@@ -543,11 +488,7 @@ msgid ""
 "they only work when entered manually in a section"
 msgstr ""
 
-#: htdocs/luci-static/resources/view/routelists/lists.js:362
-msgid "the list file could not be read"
-msgstr ""
-
-#: htdocs/luci-static/resources/view/routelists/edit.js:295
+#: htdocs/luci-static/resources/view/routelists/lists.js:578
 msgid "…and %d more problem not shown"
 msgid_plural "…and %d more problems not shown"
 msgstr[0] ""

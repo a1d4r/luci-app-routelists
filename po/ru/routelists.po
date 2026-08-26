@@ -41,14 +41,14 @@ msgstr "Действия"
 msgid "Add"
 msgstr "Добавить"
 
-msgid "After saving a list, show a reminder that changes take effect only after applying (reload) ZeroBlock."
-msgstr "После сохранения списка показывать напоминание, что изменения вступят в силу только после применения (reload) ZeroBlock."
+msgid "After saving a list, show a reminder that changes take effect only after applying them to ZeroBlock."
+msgstr "После сохранения списка показывать напоминание, что изменения вступят в силу только после применения в ZeroBlock."
 
 msgid "Allowed in modes"
 msgstr "Допустим в режимах"
 
-msgid "Apply ZeroBlock changes (reload)"
-msgstr "Применить изменения ZeroBlock (reload)"
+msgid "Apply ZeroBlock changes"
+msgstr "Применить изменения ZeroBlock"
 
 msgid "Attaching a list to a ZeroBlock section"
 msgstr "Подключение списка к секции ZeroBlock"
@@ -214,14 +214,14 @@ msgstr "Удалить дубликаты"
 msgid "Save"
 msgstr "Сохранить"
 
-msgid "Save & Apply (reload)"
-msgstr "Сохранить и применить (reload)"
+msgid "Save & Apply"
+msgstr "Сохранить и применить"
 
 msgid "Save with warnings/errors"
 msgstr "Сохранить с предупреждениями/ошибками"
 
-msgid "Saved. Changes take effect after applying (reload) ZeroBlock."
-msgstr "Сохранено. Изменения вступят в силу после применения (reload) ZeroBlock."
+msgid "Saved. Changes take effect after applying them to ZeroBlock."
+msgstr "Сохранено. Изменения вступят в силу после применения в ZeroBlock."
 
 msgid "Settings"
 msgstr "Настройки"

@@ -19,7 +19,7 @@ return view.extend({
 
 		let o = s.option(form.Flag, 'suggest_apply',
 			_('Suggest applying ZeroBlock after saving'),
-			_('After saving a list, show a reminder that changes take effect only after applying (reload) ZeroBlock.'));
+			_('After saving a list, show a reminder that changes take effect only after applying them to ZeroBlock.'));
 		o.default = '1';
 
 		o = s.option(form.DummyValue, '_storage',
