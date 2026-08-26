@@ -3,8 +3,10 @@
 
 /* Line format contract: ZeroBlock full manual v0.8.4-r248, section 11.1.
    Valid entries: domain, IPv4, IPv6, CIDR — one per line (plain mixed TXT).
-   Everything else is rejected here because ZeroBlock's own autodetect is
-   binary (IP-ish or domain) and silently swallows garbage as a "domain". */
+   Full-line "#" comments are ignored by ZeroBlock (verified in practice on
+   v0.8.4, not documented). Everything else is rejected here because
+   ZeroBlock's own autodetect is binary (IP-ish or domain) and silently
+   swallows garbage as a "domain". */
 
 const RE_LABEL = /^(xn--[a-z0-9-]{1,59}|[a-z0-9]|[a-z0-9][a-z0-9-]{0,61}[a-z0-9])$/i;
 const RE_TLD = /^(xn--[a-z0-9-]+|[a-z]{2,})$/i;
@@ -104,13 +106,6 @@ function toPunycode(s) {
    First matching row wins; rows are checked before entry parsing. */
 const LINE_CHECKS = [
 	{
-		code: 'comment',
-		severity: 'warning',
-		/* "##" directly followed by a selector is adblock syntax, not a comment */
-		test: (s) => s.charAt(0) == '#' && !/^##\S/.test(s),
-		message: () => _('comments in list files are not documented by ZeroBlock — the line may be interpreted as a domain')
-	},
-	{
 		code: 'prefix',
 		severity: 'error',
 		test: (s) => /^(full|keyword|regexp):/i.test(s),
@@ -154,6 +149,11 @@ function classifyLine(raw) {
 	const s = raw.trim();
 
 	if (!s)
+		return { type: 'empty' };
+
+	/* Full-line comments are ignored by ZeroBlock — valid, not an entry.
+	   "##" directly followed by a selector is adblock syntax, not a comment. */
+	if (s.charAt(0) == '#' && !/^##\S/.test(s))
 		return { type: 'empty' };
 
 	for (const check of LINE_CHECKS)

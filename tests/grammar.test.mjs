@@ -103,12 +103,9 @@ test('domain length limits', () => {
 	assert.deepEqual(codes([label, label, label, label, 'com'].join('.')), ['garbage']);
 });
 
-test('full-line comment is a warning, not an entry', () => {
-	const r = validate('# my sites');
-	assert.equal(r.entries, 0);
-	assert.equal(r.problems.length, 1);
-	assert.equal(r.problems[0].code, 'comment');
-	assert.equal(r.problems[0].severity, 'warning');
+test('full-line comment is ignored: no entry, no problems', () => {
+	assert.deepEqual(validate('# my sites'), { entries: 0, problems: [] });
+	assert.deepEqual(validate('#no-space'), { entries: 0, problems: [] });
 });
 
 test('inline comment is a warning, not an entry', () => {
@@ -149,8 +146,8 @@ test('adblock syntax is an error', () => {
 	assert.deepEqual(codes('##.ads'), ['adblock']);
 });
 
-test('a "##" comment with text stays a comment warning', () => {
-	assert.deepEqual(codes('## my sites'), ['comment']);
+test('a "##" comment with text is an ignored comment, not adblock', () => {
+	assert.deepEqual(validate('## my sites'), { entries: 0, problems: [] });
 });
 
 test('other garbage is an error', () => {
@@ -201,7 +198,7 @@ test('duplicates: warning, case-insensitive for domains', () => {
 
 test('problems carry 1-based line numbers', () => {
 	const r = validate('example.com\nfoo bar\n# c\n1.2.3.4/33');
-	assert.deepEqual(r.problems.map((p) => p.line), [2, 3, 4]);
+	assert.deepEqual(r.problems.map((p) => p.line), [2, 4]);
 });
 
 test('normalize: trims lines and converts CRLF to LF', () => {

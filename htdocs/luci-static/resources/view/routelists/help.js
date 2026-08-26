@@ -26,6 +26,7 @@ return view.extend({
 					E('div', { 'class': 'th' }, _('Allowed in modes'))
 				]),
 				formatRow(_('Empty line'), null, _('all')),
+				formatRow(_('Comment line'), '# my sites', _('all')),
 				formatRow(_('Domain'), 'example.com', _('Auto, Domains only')),
 				formatRow(_('IPv4'), '1.2.3.4', _('Auto, IP only')),
 				formatRow(_('IPv4 CIDR'), '1.2.3.0/24', _('Auto, IP only')),
@@ -38,8 +39,9 @@ return view.extend({
 			E('h3', _('Check modes')),
 			E('p', _('The check mode only affects validation in this app; ZeroBlock itself always auto-detects each line. "Auto" accepts every valid entry type, "Domains only" and "IP only" restrict the list to one entry type — useful to catch mistakes in lists meant for a single purpose.')),
 
-			E('h3', _('Why comments are flagged')),
-			E('p', _('Comments (# ...) in list files are not documented by ZeroBlock. Its auto-detection is binary: a line with "/" or consisting of digits and dots is treated as IP/CIDR, everything else — including a comment line — silently becomes a "domain". That is why comments produce a warning here, and why invalid lines are worth fixing: ZeroBlock will never report them.')),
+			E('h3', _('Comments')),
+			E('p', _('Full-line comments (# ...) are ignored by ZeroBlock and are valid here. An inline comment after an entry (%s) is still flagged: it is not documented, and ZeroBlock\'s auto-detection is binary — a line with "/" or consisting of digits and dots is treated as IP/CIDR, everything else silently becomes a "domain". That is also why invalid lines are worth fixing: ZeroBlock will never report them.')
+				.format('1.2.3.4 # note')),
 
 			E('h3', _('Attaching a list to a ZeroBlock section')),
 			E('ol', {}, [
