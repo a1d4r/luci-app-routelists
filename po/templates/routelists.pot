@@ -154,6 +154,10 @@ msgstr ""
 msgid "Entries"
 msgstr ""
 
+#: htdocs/luci-static/resources/view/routelists/lists.js:278
+msgid "?"
+msgstr ""
+
 #: htdocs/luci-static/resources/view/routelists/help.js:61
 msgid ""
 "Entry formats verified against ZeroBlock full manual v0.8.4-r248, section 11."

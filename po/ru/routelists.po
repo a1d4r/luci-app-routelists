@@ -122,6 +122,9 @@ msgstr "Строки-комментарии (# ...) ZeroBlock игнорируе
 msgid "Entries"
 msgstr "Записей"
 
+msgid "?"
+msgstr "?"
+
 msgid "Entry formats verified against ZeroBlock full manual v0.8.4-r248, section 11."
 msgstr "Форматы записей сверены с полным руководством ZeroBlock v0.8.4-r248, раздел 11."
 
