@@ -1,0 +1,380 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: luci-app-routelists\n"
+"PO-Revision-Date: 2026-08-27 00:00+0800\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: Chinese (Simplified)\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "%d entry"
+msgid_plural "%d entries"
+msgstr[0] "%d 个条目"
+
+msgid "%d error"
+msgid_plural "%d errors"
+msgstr[0] "%d 个错误"
+
+msgid "%d warning"
+msgid_plural "%d warnings"
+msgstr[0] "%d 个警告"
+
+msgid "%s, %s, %s"
+msgstr "%s、%s、%s"
+
+msgid "A list named \"%s\" already exists."
+msgstr "名为“%s”的列表已存在。"
+
+msgid "Actions"
+msgstr "操作"
+
+msgid "Add"
+msgstr "添加"
+
+msgid ""
+"After saving a list, show a reminder that changes take effect only after "
+"applying them to ZeroBlock."
+msgstr "保存列表后，提示只有将其应用到 ZeroBlock 后更改才会生效。"
+
+msgid "Allowed in modes"
+msgstr "允许的模式"
+
+msgid "Apply ZeroBlock changes"
+msgstr "应用 ZeroBlock 更改"
+
+msgid "Attaching a list to a ZeroBlock section"
+msgstr "将列表附加到 ZeroBlock 配置段"
+
+msgid "Auto"
+msgstr "自动"
+
+msgid "Auto, Domains only"
+msgstr "自动，仅域名"
+
+msgid "Auto, IP only"
+msgstr "自动，仅 IP"
+
+msgid "Backups"
+msgstr "备份"
+
+msgid "Cancel"
+msgstr "取消"
+
+msgid "Check mode"
+msgstr "检查模式"
+
+msgid "Check modes"
+msgstr "检查模式"
+
+msgid "Comment line"
+msgstr "注释行"
+
+msgid "Comments"
+msgstr "注释"
+
+msgid "Copied"
+msgstr "已复制"
+
+msgid "Copy path"
+msgstr "复制路径"
+
+msgid "Copy the list path on the Lists tab (\"Copy path\")."
+msgstr "在列表标签页中复制列表路径（“复制路径”）。"
+
+msgid "Delete"
+msgstr "删除"
+
+msgid "Delete list"
+msgstr "删除列表"
+
+msgid "Delete list \"%s\"? The file will be removed permanently."
+msgstr "删除列表“%s”？文件将被永久移除。"
+
+msgid "Deleting lists that are in use"
+msgstr "删除正在使用的列表"
+
+msgid "Domain"
+msgstr "域名"
+
+msgid "Domains only"
+msgstr "仅域名"
+
+msgid "Edit"
+msgstr "编辑"
+
+msgid "Edit list"
+msgstr "编辑列表"
+
+msgid "Empty line"
+msgstr "空行"
+
+msgid "Entries"
+msgstr "条目数"
+
+msgid "?"
+msgstr "?"
+
+msgid ""
+"Entry formats verified against ZeroBlock full manual v0.8.4-r248, section 11."
+msgstr "条目格式已对照 ZeroBlock 完整手册 v0.8.4-r248 第 11 节校验。"
+
+msgid "Example"
+msgstr "示例"
+
+msgid "Failed to create list: %s"
+msgstr "创建列表失败：%s"
+
+msgid "Failed to delete list: %s"
+msgstr "删除列表失败：%s"
+
+msgid ""
+"Failed to read the list file: %s. The editor stays closed so that the file "
+"cannot be overwritten with empty content."
+msgstr "读取列表文件失败：%s。编辑器保持关闭，以免文件被空内容覆盖。"
+
+msgid "Failed to run ZeroBlock reload: %s"
+msgstr "执行 ZeroBlock 重载失败：%s"
+
+msgid "Failed to save list: %s"
+msgstr "保存列表失败：%s"
+
+msgid "Format"
+msgstr "格式"
+
+msgid ""
+"Full-line comments (# ...) are ignored by ZeroBlock and are valid here. An "
+"inline comment after an entry (%s) is still flagged: it is not documented, "
+"and ZeroBlock's auto-detection is binary — a line with \"/\" or consisting "
+"of digits and dots is treated as IP/CIDR, everything else silently becomes a "
+"\"domain\". That is also why invalid lines are worth fixing: ZeroBlock will "
+"never report them."
+msgstr "整行注释（# ...）会被 ZeroBlock 忽略，在此处有效。条目后的行内注释（%s）仍会被标记：因为该格式未被文档记录，且 ZeroBlock 的自动检测是二元的——包含“/”或仅由数字和点组成的行被视为 IP/CIDR，其余都被静默当作“域名”。这也正是需要修正无效行的原因：ZeroBlock 本身永远不会报告它们。"
+
+msgid "Grant access to LuCI user route lists app"
+msgstr "授予 LuCI 用户路由列表应用访问权限"
+
+msgid "Help"
+msgstr "帮助"
+
+msgid "IP only"
+msgstr "仅 IP"
+
+msgid "IPv4"
+msgstr "IPv4"
+
+msgid "IPv4 CIDR"
+msgstr "IPv4 CIDR"
+
+msgid "IPv6"
+msgstr "IPv6"
+
+msgid "IPv6 CIDR"
+msgstr "IPv6 CIDR"
+
+msgid ""
+"If a file referenced by a ZeroBlock section disappears, then depending on "
+"lists_failure_mode the section may be disabled (degrade) or the whole proxy "
+"service may stop (teardown). Remove the path from the sections before "
+"deleting a list."
+msgstr "如果 ZeroBlock 配置段引用的文件消失，根据 lists_failure_mode 设置，该段可能被禁用（degrade），或整个代理服务可能停止（teardown）。删除列表前请先从各配置段中移除路径。"
+
+msgid ""
+"Invalid list name — allowed: letters, digits, \"-\" and \"_\", at most 32 "
+"characters."
+msgstr "无效的列表名称——允许使用字母、数字、“-”和“_”，最多 32 个字符。"
+
+msgid "Leave"
+msgstr "离开"
+
+msgid "List name"
+msgstr "列表名称"
+
+msgid "Lists"
+msgstr "列表"
+
+msgid "Name"
+msgstr "名称"
+
+msgid ""
+"No lists yet. Create the first one and attach it to a ZeroBlock section via "
+"its file path."
+msgstr "暂无列表。创建第一个列表，并通过文件路径将其附加到 ZeroBlock 配置段。"
+
+msgid "Not saved: the file exceeds the %d KiB limit."
+msgstr "未保存：文件超过 %d KiB 限制。"
+
+msgid ""
+"Not saved: the list has problems. Fix them or use \"Save with warnings/"
+"errors\"."
+msgstr "未保存：列表存在问题。请修正，或使用“保存（含警告/错误）”。"
+
+msgid ""
+"One entry per line, plain text. The following are rejected as errors because "
+"the ZeroBlock file contract explicitly excludes them: %s prefixes, hosts-"
+"style lines (%s) and adblock syntax (%s). Those notations only work when "
+"entered manually inside a ZeroBlock section, not in list files."
+msgstr "每行一条，纯文本。以下内容会被拒绝为错误，因为 ZeroBlock 文件约定明确将其排除：%s 前缀、hosts 格式行（%s）和 adblock 语法（%s）。这些写法仅在 ZeroBlock 配置段中手动输入时有效，在列表文件中无效。"
+
+msgid "Open the desired section in ZeroBlock."
+msgstr "在 ZeroBlock 中打开目标配置段。"
+
+msgid "Paste the path into the \"User lists\" field and apply."
+msgstr "将路径粘贴到“用户列表”字段并应用。"
+
+msgid "Paste this path into the \"User lists\" field of a ZeroBlock section"
+msgstr "将此路径粘贴到 ZeroBlock 配置段的“用户列表”字段"
+
+msgid "Path"
+msgstr "路径"
+
+msgid ""
+"Public, ready-made lists are better attached directly by URL in ZeroBlock; "
+"this app is for maintaining your own local lists."
+msgstr "公开现成列表建议直接在 ZeroBlock 中通过 URL 附加；本应用用于维护您自己的本地列表。"
+
+msgid "Remove duplicates"
+msgstr "删除重复项"
+
+msgid "Save"
+msgstr "保存"
+
+msgid "Save & Apply"
+msgstr "保存并应用"
+
+msgid "Save with warnings/errors"
+msgstr "保存（含警告/错误）"
+
+msgid "Saved. Changes take effect after applying them to ZeroBlock."
+msgstr "已保存。更改将在应用到 ZeroBlock 后生效。"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "Size"
+msgstr "大小"
+
+msgid "Stay"
+msgstr "留下"
+
+msgid "Storage directory"
+msgstr "存储目录"
+
+msgid "Suggest applying ZeroBlock after saving"
+msgstr "保存后提示应用 ZeroBlock"
+
+msgid "Supported entry formats"
+msgstr "支持的条目格式"
+
+msgid "Switch to its Lists tab."
+msgstr "切换到其“列表”标签页。"
+
+msgid ""
+"The check mode only affects validation in this app; ZeroBlock itself always "
+"auto-detects each line. \"Auto\" accepts every valid entry type, \"Domains "
+"only\" and \"IP only\" restrict the list to one entry type — useful to catch "
+"mistakes in lists meant for a single purpose."
+msgstr "检查模式仅影响本应用中的校验；ZeroBlock 本身始终自动检测每一行。“自动”接受所有有效条目类型，“仅域名”和“仅 IP”将列表限制为单一类型——有助于发现面向单一用途的列表中的错误。"
+
+msgid ""
+"The directory is fixed by the access policy (ACL). Changing it is only "
+"possible by editing the ACL file manually."
+msgstr "目录由访问策略（ACL）固定。只能通过手动编辑 ACL 文件来更改。"
+
+msgid "The list has unsaved changes. Leave without saving?"
+msgstr "列表有未保存的更改。是否不保存离开？"
+
+msgid ""
+"The lists (/etc/user-lists) and this app's settings are included in the "
+"standard LuCI configuration backup. A sysupgrade without keeping settings "
+"erases them — make a backup before flashing."
+msgstr "这些列表（/etc/user-lists）以及本应用的设置已包含在标准 LuCI 配置备份中。不保留设置进行 sysupgrade 会清除它们——刷机前请备份。"
+
+msgid ""
+"This file is referenced by ZeroBlock section(s): %s. Depending on "
+"lists_failure_mode, a missing file may disable the section or stop the whole "
+"proxy service (teardown). Remove the path from the sections first."
+msgstr "此文件被以下 ZeroBlock 配置段引用：%s。根据 lists_failure_mode 设置，缺失文件可能导致该段被禁用，或使整个代理服务停止（teardown）。请先从这些配置段中移除路径。"
+
+msgid ""
+"This file is referenced by ZeroBlock section(s): %s. The paths there are not "
+"updated automatically — fix them manually after renaming."
+msgstr "此文件被以下 ZeroBlock 配置段引用：%s。其中的路径不会自动更新——重命名后请手动修正。"
+
+msgid ""
+"This list is larger than %d KiB and cannot be saved back — the editor is "
+"read-only. Edit the file over SSH."
+msgstr "此列表大于 %d KiB，无法保存回写——编辑器为只读。请通过 SSH 编辑文件。"
+
+msgid "Unsaved changes"
+msgstr "未保存的更改"
+
+msgid "User Lists"
+msgstr "用户列表"
+
+msgid "User Lists — Help"
+msgstr "用户列表 — 帮助"
+
+msgid "User Lists — Settings"
+msgstr "用户列表 — 设置"
+
+msgid ""
+"User list files (domains / IP / CIDR) stored in %s. Attach a list to a "
+"ZeroBlock section by pasting its file path into the section's \"User lists\" "
+"field."
+msgstr "用户列表文件（域名 / IP / CIDR）存储在 %s 中。通过将文件路径粘贴到 ZeroBlock 配置段的“用户列表”字段来附加列表。"
+
+msgid "ZeroBlock reload failed: %s"
+msgstr "ZeroBlock 重载失败：%s"
+
+msgid "ZeroBlock reload finished successfully."
+msgstr "ZeroBlock 重载成功完成。"
+
+msgid ""
+"adblock syntax is explicitly excluded by the ZeroBlock file contract (manual "
+"11.1)"
+msgstr "adblock 语法被 ZeroBlock 文件约定明确排除（manual 11.1）"
+
+msgid "all"
+msgstr "全部"
+
+msgid "duplicate of line %d"
+msgstr "第 %d 行的重复"
+
+msgid ""
+"hosts-style format is explicitly excluded by the ZeroBlock file contract "
+"(manual 11.1)"
+msgstr "hosts 格式被 ZeroBlock 文件约定明确排除（manual 11.1）"
+
+msgid ""
+"inline comments are not documented by ZeroBlock — the whole line may be "
+"interpreted as a domain"
+msgstr "行内注释未被 ZeroBlock 文档记录——整行可能被解释为域名"
+
+msgid "line %d: %s"
+msgstr "第 %d 行：%s"
+
+msgid ""
+"non-ASCII (IDN) domain is not documented by ZeroBlock — consider the "
+"punycode form: %s"
+msgstr "非 ASCII（IDN）域名未被 ZeroBlock 文档记录——请考虑使用 punycode 形式：%s"
+
+msgid "not a domain (this list allows domains only)"
+msgstr "不是域名（此列表仅允许域名）"
+
+msgid "not a domain or IP/CIDR"
+msgstr "不是域名或 IP/CIDR"
+
+msgid "not an IP/CIDR (this list allows IP entries only)"
+msgstr "不是 IP/CIDR（此列表仅允许 IP 条目）"
+
+msgid ""
+"prefixes are not supported in list files (ZeroBlock contract, manual 11.1) — "
+"they only work when entered manually in a section"
+msgstr "前缀在列表文件中不受支持（ZeroBlock 约定，manual 11.1）——仅在配置段中手动输入时有效"
+
+msgid "…and %d more problem not shown"
+msgid_plural "…and %d more problems not shown"
+msgstr[0] "…还有 %d 个问题未显示"

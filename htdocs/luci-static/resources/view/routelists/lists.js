@@ -275,7 +275,7 @@ return view.extend({
 			E('div', { 'class': 'td', 'data-title': _('Name') }, [list.name]),
 			E('div', { 'class': 'td', 'data-title': _('Check mode') }, modeLabel(list.mode)),
 			E('div', { 'class': 'td', 'data-title': _('Entries') },
-				list.entries === null ? '?' : String(list.entries)),
+				list.entries === null ? _('?') : String(list.entries)),
 			E('div', { 'class': 'td', 'data-title': _('Size') }, '%1024.2mB'.format(list.size)),
 			E('div', { 'class': 'td', 'data-title': _('Path') }, [
 				E('code', {}, [list.path]),
