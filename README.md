@@ -35,7 +35,9 @@ LuCI-приложение для OpenWrt: пользовательские сп�
 
 ## Установка
 
-Скачайте пакеты из [Releases](https://github.com/a1d4r/luci-app-routelists/releases) и установите любым способом:
+Скачайте пакеты из [Releases](https://github.com/a1d4r/luci-app-routelists/releases): `.ipk` для OpenWrt 24.10, `.apk` для OpenWrt 25.12+.
+
+### OpenWrt 24.10 (ipk)
 
 **Через терминал:**
 
@@ -46,13 +48,22 @@ opkg install luci-i18n-routelists-ru_*.ipk   # русский перевод (о
 
 **Через LuCI:** Система → Программное обеспечение → «Загрузить пакет…» — и выберите скачанный ipk.
 
+### OpenWrt 25.12+ (apk)
+
+Пакеты не подписаны ключом OpenWrt, поэтому `apk` требует явного согласия — ставьте через терминал:
+
+```sh
+apk add --allow-untrusted ./luci-app-routelists-*.apk
+apk add --allow-untrusted ./luci-i18n-routelists-ru-*.apk   # русский перевод (опционально)
+```
+
 После установки обновите страницу — раздел появится в **Службы → Пользовательские списки**.
 
 ## Совместимость
 
 | | |
 |---|---|
-| OpenWrt | 24.10+ (LuCI JS-views) |
+| OpenWrt | 24.10 (ipk), 25.12+ (apk); LuCI JS-views |
 | ZeroBlock | 0.8.x (форматы сверены с manual v0.8.4-r248) |
 | Архитектура | любая (`all`) |
 | Зависимости | только `luci-base` |
@@ -83,7 +94,7 @@ npm run lint   # eslint, стиль openwrt/luci
 npm test       # тесты грамматики (node:test)
 ```
 
-Сборка ipk выполняется в CI через OpenWrt SDK по тегу `v*`.
+Сборка ipk и apk выполняется в CI через OpenWrt SDK по тегу `v*`.
 
 ## Лицензия
 

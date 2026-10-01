@@ -28,8 +28,22 @@ jobs:
           PACKAGES: luci-app-routelists
           NO_REFRESH_CHECK: true
 
+      # OpenWrt 25.12+ replaced opkg with apk. The package is arch-independent,
+      # so one x86_64 SDK build serves every target. Separate artifacts dir:
+      # the action ends with `mv bin/ /artifacts/`, which fails if bin/ exists.
+      - name: Prepare apk artifacts dir
+        run: mkdir apk
+
+      - name: Build apk with OpenWrt SDK
+        uses: openwrt/gh-action-sdk@7fc2640243284ecc44f4a9c3f749a61746ee02cb # v11
+        env:
+          ARCH: x86_64-25.12.0
+          ARTIFACTS_DIR: ${{ github.workspace }}/apk
+          PACKAGES: luci-app-routelists
+          NO_REFRESH_CHECK: true
+
       - name: List built packages
-        run: find bin -name '*routelists*'
+        run: find bin apk -name '*routelists*'
 
       - name: Publish GitHub release
         uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
@@ -37,4 +51,6 @@ jobs:
           files: |
             bin/packages/*/*/luci-app-routelists*.ipk
             bin/packages/*/*/luci-i18n-routelists-ru*.ipk
+            apk/bin/packages/*/*/luci-app-routelists*.apk
+            apk/bin/packages/*/*/luci-i18n-routelists-ru*.apk
           generate_release_notes: true
